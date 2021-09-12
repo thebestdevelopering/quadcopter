@@ -4,8 +4,6 @@ const initialState = {
   filter: "",
   error: null,
   image: [],
-  cart: [],
-  oneProduct: [],
 };
 
 export default function products(state = initialState, action) {
@@ -69,23 +67,6 @@ export default function products(state = initialState, action) {
       return {
         ...state,
         filter: action.payload,
-      };
-    case "cart":
-      return {
-        ...state,
-        cart: action.payload,
-      };
-
-      case "category/product/pending":
-      return {
-        ...state,
-        loading: true,
-      };
-    case "category/product/fulfilled":
-      return {
-        ...state,
-        product: action.payload,
-        loading: false,
       };
 
     default:
@@ -160,7 +141,7 @@ export const removeProducts = (id) => {
   };
 };
 
-export const editProducts = (id, name, price) => {
+export const editProducts = (id, name, price, category, image, description) => {
   return (dispatch, getState) => {
     const state = getState();
     fetch(`http://localhost:4000/product/${id}`, {
@@ -170,6 +151,7 @@ export const editProducts = (id, name, price) => {
         price,
         image: state.products.image,
         category,
+        description,
       }),
 
       headers: {
@@ -179,7 +161,6 @@ export const editProducts = (id, name, price) => {
     }).then(() => {
       dispatch({ type: "product/edit", payload: id });
     });
-    window.location.reload();
   };
 };
 
@@ -220,7 +201,6 @@ export const addProduct = (name, price, image, category) => {
     window.location.reload();
   };
 };
-
 
 export const productByCategories = (id) => {
   return async (dispatch) => {

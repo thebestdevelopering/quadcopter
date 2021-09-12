@@ -10,7 +10,7 @@ import ProfilePages from "./pages/ProfilePages/ProfilePages";
 import Test from "./pages/ProfilePages/Test";
 import EditProduct from "./pages/ProfilePages/EditProduct";
 
-import MainPagesProduct from "./pages/HomePage/MainPagesProduct";
+// import MainPagesProduct from "./pages/HomePage/MainPagesProduct";
 
 
 function App() {
@@ -31,11 +31,11 @@ function App() {
           <Route path="/addproduct" exact>
             <AddProduct />
           </Route>
-          <Route path="/editproduct" exact>
+          <Route path="/editproduct/:id" exact>
             <EditProduct />
           </Route>
           <Route path="/t" exact>
-          <MainPagesProduct/>
+          {/* <MainPagesProduct/> */}
           </Route>
          
           {/* <Redirect to="/signin" /> */}
