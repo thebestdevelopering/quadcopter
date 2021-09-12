@@ -8,6 +8,17 @@ import { withStyles } from "@material-ui/core/styles";
 import InputBase from "@material-ui/core/InputBase";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { editProducts } from "../../../redux/features/products";
+import {
+  FormControl,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import { loadCategories } from "../../../redux/features/categories";
+import { useEffect } from "react";
+
+
 const BootstrapInput = withStyles((theme) => ({
   root: {
     "label + &": {
@@ -63,6 +74,8 @@ function EditProduct() {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [id, setId] = useState("");
+  const categories = useSelector((state) => state.categories.items);
+  console.log(categories);
   
 
 
@@ -82,17 +95,22 @@ function EditProduct() {
   };
 
   const handleAddProduct = () => {
-    dispatch(editProducts(id, name, price));
+    dispatch(editProducts(id, name, price,  category));
   };
 
   const handleAddId = (e) => {
     setId(e.target.value);
   };
 
+
+  useEffect(() => {
+    dispatch(loadCategories());
+  }, [dispatch]);
+
   return (
     <Container>
       <Header />
-      <h3>Добавить товар</h3>
+      <h3>Изменение товара</h3>
       <TextField
         id="outlined-multiline-static"
         label="id"
@@ -130,6 +148,22 @@ function EditProduct() {
         onChange={handleAddPrice}
         variant="outlined"
       />
+      <Paper>
+        <Typography align="center">Выберите категорию</Typography>
+        <FormControl>
+          <Select
+            value={category}
+            onChange={handleAddCategory}
+            inputProps={{ "aria-label": "Without label" }}
+          >
+            {categories.map((item) => (
+              <MenuItem key={item.value} value={item._id}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Paper>
 
       <Button onClick={handleAddProduct} variant="contained" color="primary">
         Добавить
