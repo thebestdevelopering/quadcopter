@@ -1,7 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { Button, Container, TextField, FormControl, MenuItem, Select, } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  TextField,
+  FormControl,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import { addImage, addProduct } from "../../../redux/features/products";
@@ -17,7 +24,7 @@ function AddProduct() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const categories = useSelector((state) => state.categories.items);
-  console.log(categories)
+  console.log(categories);
 
   const handleAddName = (e) => {
     setName(e.target.value);
@@ -90,10 +97,9 @@ function AddProduct() {
                 {item.name}
               </MenuItem>
             ))}
-            
           </Select>
         </FormControl>
-        </Paper>
+      </Paper>
 
       <Button onClick={handleAddProduct} variant="contained" color="primary">
         Добавить
