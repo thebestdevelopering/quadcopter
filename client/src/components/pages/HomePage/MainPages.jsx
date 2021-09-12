@@ -1,6 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { removeProducts } from "../../../redux/features/products";
 
 const useStyles = makeStyles((theme) =>
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function MainPages() {
+function MainPages(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -29,20 +30,22 @@ function MainPages() {
     });
   });
 
+  console.log(products);
+
   const handleDelete = (id) => {
     dispatch(removeProducts(id));
   };
-
   return (
     <div>
-      {products?.map((item) => {
+      {products?.map((item, index) => {
         return (
           <Grid className={classes.card}>
+            {item._id}
             <img src={item.pathImages} alt="" />
-            {item.name}
+            <Link to="/editproduct">Изменить</Link>
             {item.image}
+            {item.name}
             {item.price}
-            {item.description}
             {item.category}
             <Grid>
               <button

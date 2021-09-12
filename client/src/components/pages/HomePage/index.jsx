@@ -19,11 +19,12 @@ function Home() {
   if (error) {
     return <div>{error}</div>;
   }
-  return ( <>
-  <Header />
-  <MainPages />
-  </>
-  )
+  return (
+    <>
+      <Header />
+      <MainPages />
+    </>
+  );
 }
 
 export default Home;

@@ -1,9 +1,11 @@
 const initialState = {
   loading: true,
   product: [],
+  filter: "",
   error: null,
   image: [],
-  filter: "",
+  cart: [],
+  oneProduct: [],
 };
 
 export default function products(state = initialState, action) {
@@ -68,6 +70,23 @@ export default function products(state = initialState, action) {
         ...state,
         filter: action.payload,
       };
+    case "cart":
+      return {
+        ...state,
+        cart: action.payload,
+      };
+
+      case "category/product/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "category/product/fulfilled":
+      return {
+        ...state,
+        product: action.payload,
+        loading: false,
+      };
 
     default:
       return state;
@@ -101,35 +120,6 @@ export const fetchProducts = () => {
         error: e.toString(),
       });
     }
-  };
-};
-
-export const addProduct = (name, price, image, category) => {
-  return async (dispatch, getState) => {
-    dispatch({ type: "product/post/pending" });
-
-    const state = getState();
-
-    const response = await fetch("http://localhost:4000/product", {
-      method: "POST",
-      body: JSON.stringify({
-        name,
-        price,
-        image: state.products.image,
-        category,
-      }),
-      headers: {
-        Authorization: `Bearer ${state.application.token}`,
-        "Content-type": "application/json",
-      },
-    });
-    const json = await response.json();
-
-    dispatch({
-      type: "product/post/fulfilled",
-      payload: json,
-    });
-    window.location.reload();
   };
 };
 
@@ -170,6 +160,29 @@ export const removeProducts = (id) => {
   };
 };
 
+export const editProducts = (id, name, price) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    fetch(`http://localhost:4000/product/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        name,
+        price,
+        image: state.products.image,
+        category,
+      }),
+
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
+      dispatch({ type: "product/edit", payload: id });
+    });
+    window.location.reload();
+  };
+};
+
 export const setFilterText = (text) => {
   return {
     type: "products/filter/fulfilled",
@@ -177,25 +190,45 @@ export const setFilterText = (text) => {
   };
 };
 
-// export const editProducts = (id, product) => {
-//   return (dispatch, getState) => {
-//     const state = getState();
-//     fetch(`http://localhost:4000/product/${id}`, {
-//       method: "PATCH",
-//       body: JSON.stringify({
-//         name: product.name,
-//         price: product.price,
-//         description: product.description,
-//         category: product.category,
-//       }),
+export const addProduct = (name, price, image, category) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: "product/post/pending" });
 
-//       headers: {
-//         Authorization: `Bearer ${state.application.token}`,
-//         "Content-Type": "application/json",
-//       },
-//     }).then(() => {
-//       dispatch({ type: "product/edit", payload: { id, product } });
-//     });
-//     window.location.reload();
-//   };
-// };
+    const state = getState();
+    console.log(name);
+
+    const response = await fetch(`http://localhost:4000/product`, {
+      method: "POST",
+
+      body: JSON.stringify({
+        name,
+        price,
+        image: state.products.image,
+        category,
+      }),
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+        "Content-type": "application/json",
+      },
+    });
+    const json = await response.json();
+
+    dispatch({
+      type: "product/post/fulfilled",
+      payload: json,
+    });
+    window.location.reload();
+  };
+};
+
+
+export const productByCategories = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: "category/product/pending", payload: id });
+
+    const response = await fetch(`http://localhost:4000/category/${id}`);
+    const json = await response.json();
+
+    dispatch({ type: "category/product/fulfilled", payload: json });
+  };
+};
