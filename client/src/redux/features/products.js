@@ -4,8 +4,6 @@ const initialState = {
   filter: "",
   error: null,
   image: [],
-  cart: [],
-  oneProduct: [],
 };
 
 export default function products(state = initialState, action) {
@@ -58,40 +56,24 @@ export default function products(state = initialState, action) {
           (products) => products.id !== action.payload
         ),
       };
-    case "product/edit":
+      case "product/edit":
       return {
         ...state,
         product: state.product.filter(
           (products) => products.id !== action.payload
         ),
       };
-    case "products/filter/fulfilled":
+      case "products/filter/fulfilled":
       return {
         ...state,
         filter: action.payload,
-      };
-    case "cart":
-      return {
-        ...state,
-        cart: action.payload,
-      };
-
-      case "category/product/pending":
-      return {
-        ...state,
-        loading: true,
-      };
-    case "category/product/fulfilled":
-      return {
-        ...state,
-        product: action.payload,
-        loading: false,
       };
 
     default:
       return state;
   }
 }
+
 
 export const fetchProducts = () => {
   return async (dispatch, getState) => {
@@ -160,7 +142,35 @@ export const removeProducts = (id) => {
   };
 };
 
-export const editProducts = (id, name, price) => {
+// export const editProducts = (id, name, price,category) => {
+//   return (dispatch, getState) => {
+//     console.log(id)
+//     const state = getState();
+//     fetch(`http://localhost:4000/product/${id}`, {
+//       method: "PATCH",
+//       body: JSON.stringify({
+//         name,
+//         price,
+//         image: state.products.image,
+//         category,
+//       }),
+
+//       headers: {
+//         Authorization: `Bearer ${state.application.token}`,
+//         "Content-Type": "application/json",
+//       },
+
+
+      
+//     }).then(() => {
+//       dispatch({ type: "product/edit", payload: id });
+//     });
+//     window.location.reload();
+//   };
+// };
+
+
+export const editProducts = (id,name, price,category, image,description) => {
   return (dispatch, getState) => {
     const state = getState();
     fetch(`http://localhost:4000/product/${id}`, {
@@ -170,18 +180,31 @@ export const editProducts = (id, name, price) => {
         price,
         image: state.products.image,
         category,
+        description
       }),
-
+      
       headers: {
         Authorization: `Bearer ${state.application.token}`,
         "Content-Type": "application/json",
       },
-    }).then(() => {
-      dispatch({ type: "product/edit", payload: id });
-    });
-    window.location.reload();
+    })
+      .then(() => {
+        dispatch({ type: "product/edit", payload: id });
+      });
+      window.location.reload();
   };
 };
+
+
+
+
+
+
+
+
+
+
+
 
 export const setFilterText = (text) => {
   return {
