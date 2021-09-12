@@ -142,35 +142,8 @@ export const removeProducts = (id) => {
   };
 };
 
-// export const editProducts = (id, name, price,category) => {
-//   return (dispatch, getState) => {
-//     console.log(id)
-//     const state = getState();
-//     fetch(`http://localhost:4000/product/${id}`, {
-//       method: "PATCH",
-//       body: JSON.stringify({
-//         name,
-//         price,
-//         image: state.products.image,
-//         category,
-//       }),
+export const editProducts = (id, name, price, category, image, description) => {
 
-//       headers: {
-//         Authorization: `Bearer ${state.application.token}`,
-//         "Content-Type": "application/json",
-//       },
-
-
-      
-//     }).then(() => {
-//       dispatch({ type: "product/edit", payload: id });
-//     });
-//     window.location.reload();
-//   };
-// };
-
-
-export const editProducts = (id,name, price,category, image,description) => {
   return (dispatch, getState) => {
     const state = getState();
     fetch(`http://localhost:4000/product/${id}`, {
@@ -180,18 +153,18 @@ export const editProducts = (id,name, price,category, image,description) => {
         price,
         image: state.products.image,
         category,
-        description
+        description,
+
       }),
       
       headers: {
         Authorization: `Bearer ${state.application.token}`,
         "Content-Type": "application/json",
       },
-    })
-      .then(() => {
-        dispatch({ type: "product/edit", payload: id });
-      });
-      window.location.reload();
+    }).then(() => {
+      dispatch({ type: "product/edit", payload: id });
+    });
+
   };
 };
 
@@ -243,7 +216,6 @@ export const addProduct = (name, price, image, category) => {
     window.location.reload();
   };
 };
-
 
 export const productByCategories = (id) => {
   return async (dispatch) => {

@@ -51,7 +51,7 @@ function Header() {
 
   if (!token) {
     return (
-      <Container className={classes.cardGrid} maxWidth="100%">
+      <Container className={classes.cardGrid} maxWidth={false}>
         <Grid container className={classes.all}>
           <Grid item className={classes.head}>
             <h2 className={classes.cardH2}><NavLink to="/">Квадрокоптеры</NavLink></h2>
@@ -74,7 +74,7 @@ function Header() {
     );
   }
   return (
-    <Container className={classes.cardGrid} maxWidth="100%">
+    <Container className={classes.cardGrid} maxWidth={false}>
       <Grid container className={classes.all}>
         <Grid item className={classes.head}>
           <h2><NavLink  className={classes.cardH2} to="/">Квадрокоптеры</NavLink></h2>

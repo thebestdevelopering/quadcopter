@@ -8,5 +8,6 @@ router.get("/category", categoryController.getCategories);
 router.post("/category",authMiddleware, categoryController.createCategory);
 router.delete("/category/:id", authMiddleware, categoryController.deleteCategory);
 router.patch("/category/:id", authMiddleware, categoryController.editCategory);
+router.patch("/editproduct/:id", authMiddleware, categoryController.editCategory);
 
 module.exports = router;
