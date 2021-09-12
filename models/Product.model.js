@@ -9,6 +9,7 @@ const productSchema = mongoose.Schema(
     price: Number,
     pathImages: String,
     inStock: Boolean,
+    description: Number,
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

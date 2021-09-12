@@ -7,7 +7,7 @@ import Header from "../HomePage/Header";
 import { withStyles } from "@material-ui/core/styles";
 import InputBase from "@material-ui/core/InputBase";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-
+import { editProducts } from "../../../redux/features/products";
 const BootstrapInput = withStyles((theme) => ({
   root: {
     "label + &": {
@@ -63,7 +63,8 @@ function EditProduct() {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [id, setId] = useState("");
-  const categories = useSelector((state) => state.products.produc);
+  
+
 
   const handleAddName = (e) => {
     setName(e.target.value);
@@ -81,11 +82,11 @@ function EditProduct() {
   };
 
   const handleAddProduct = () => {
-    dispatch(addProduct(id, name, price, category));
+    dispatch(editProducts(id, name, price));
   };
 
-  const handleAddId = () => {
-    setId(event.target.value);
+  const handleAddId = (e) => {
+    setId(e.target.value);
   };
 
   return (
