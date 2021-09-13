@@ -22,6 +22,7 @@ function AddProduct() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [number, setNumber] = useState("");
   const [category, setCategory] = useState("");
   const categories = useSelector((state) => state.categories.items);
   console.log(categories);
@@ -42,12 +43,16 @@ function AddProduct() {
     setCategory(e.target.value);
   };
 
+  const handleAddNumber = (e) => {
+    setNumber(e.target.value);
+  };
+
   const handleAddImage = async (e) => {
     await dispatch(addImage(e));
   };
 
   const handleAddProduct = () => {
-    dispatch(addProduct(name, price, description, category));
+    dispatch(addProduct(name, price, description, category, number));
   };
 
   useEffect(() => {
@@ -73,6 +78,15 @@ function AddProduct() {
         rows={1}
         value={price}
         onChange={handleAddPrice}
+        variant="outlined"
+      />
+      <TextField
+        id="outlined-multiline-static"
+        label="Введите количество"
+        multiline
+        rows={1}
+        value={number}
+        onChange={handleAddNumber}
         variant="outlined"
       />
       <TextField
