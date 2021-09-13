@@ -56,14 +56,14 @@ export default function products(state = initialState, action) {
           (products) => products.id !== action.payload
         ),
       };
-      case "product/edit":
+    case "product/edit":
       return {
         ...state,
         product: state.product.filter(
           (products) => products.id !== action.payload
         ),
       };
-      case "products/filter/fulfilled":
+    case "products/filter/fulfilled":
       return {
         ...state,
         filter: action.payload,
@@ -73,7 +73,6 @@ export default function products(state = initialState, action) {
       return state;
   }
 }
-
 
 export const fetchProducts = () => {
   return async (dispatch, getState) => {
@@ -143,7 +142,6 @@ export const removeProducts = (id) => {
 };
 
 export const editProducts = (id, name, price, category, image, description) => {
-
   return (dispatch, getState) => {
     const state = getState();
     fetch(`http://localhost:4000/product/${id}`, {
@@ -154,9 +152,8 @@ export const editProducts = (id, name, price, category, image, description) => {
         image: state.products.image,
         category,
         description,
-
       }),
-      
+
       headers: {
         Authorization: `Bearer ${state.application.token}`,
         "Content-Type": "application/json",
@@ -164,20 +161,8 @@ export const editProducts = (id, name, price, category, image, description) => {
     }).then(() => {
       dispatch({ type: "product/edit", payload: id });
     });
-
   };
 };
-
-
-
-
-
-
-
-
-
-
-
 
 export const setFilterText = (text) => {
   return {
@@ -186,12 +171,11 @@ export const setFilterText = (text) => {
   };
 };
 
-export const addProduct = (name, price, image, category) => {
+export const addProduct = (name, price, image, category, number) => {
   return async (dispatch, getState) => {
     dispatch({ type: "product/post/pending" });
 
     const state = getState();
-    console.log(name);
 
     const response = await fetch(`http://localhost:4000/product`, {
       method: "POST",
@@ -201,6 +185,7 @@ export const addProduct = (name, price, image, category) => {
         price,
         image: state.products.image,
         category,
+        number,
       }),
       headers: {
         Authorization: `Bearer ${state.application.token}`,

@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports.productController = {
   addProduct: async (req, res) => {
-    const { name, price, category, image, description } = req.body;
+    const { name, price, category, image, description, number } = req.body;
     try {
       const product = await Product.create({
         user: req.user.id,
@@ -12,7 +12,8 @@ module.exports.productController = {
         name,
         price,
         category,
-        description
+        description,
+        number,
       });
       res.json(product);
     } catch (e) {
@@ -49,7 +50,7 @@ module.exports.productController = {
 
   deleteProduct: async (req, res) => {
     const { id } = req.params;
-console.log(id)
+    console.log(id);
     try {
       const product = await Product.findById(id);
       if (product.user.toString() === req.user.id) {
