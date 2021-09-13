@@ -3,13 +3,12 @@ import {
   Select,
   FormControl,
   MenuItem,
-  Typography,
   InputLabel,
-  NativeSelect,
-  withStyles
+  Box,
+  Input,
 } from "@material-ui/core";
 import React from "react";
-import { alpha, makeStyles, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { NavLink } from "react-router-dom";
 import { setFilterText } from "../../../redux/features/products";
@@ -23,41 +22,6 @@ import { useEffect } from "react";
 import { loadCategories } from "../../../redux/features/categories";
 import Paper from "@material-ui/core/Paper";
 import { useState } from "react";
-
-const BootstrapInput = withStyles((theme) => ({
-  root: {
-    'label + &': {
-      marginTop: theme.spacing(3),
-    },
-  },
-  input: {
-    borderRadius: 4,
-    position: 'relative',
-    backgroundColor: theme.palette.background.paper,
-    border: '1px solid #ced4da',
-    fontSize: 16,
-    padding: '10px 26px 10px 12px',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:focus': {
-      borderRadius: 4,
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-    },
-  },
-}))(InputBase);
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -99,6 +63,19 @@ const useStyles = makeStyles((theme) =>
     cart: {
       color: "black",
     },
+    select: {
+      display: "flex",
+      alignItems: "baseline",
+      width: "140px",
+    },
+    selectus: {
+      marginLeft: "10px",
+      color: "black",
+    },
+    sel: {
+      marginRight: "110px",
+      width: "140px",
+    },
     search: {
       position: "relative",
       borderRadius: theme.shape.borderRadius,
@@ -108,6 +85,7 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.up("sm")]: {
         marginLeft: theme.spacing(1),
         width: "auto",
+        maxWidth: "200px",
       },
     },
     searchIcon: {
@@ -125,7 +103,6 @@ const useStyles = makeStyles((theme) =>
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create("width"),
       width: "100%",
@@ -133,8 +110,15 @@ const useStyles = makeStyles((theme) =>
         width: "0ch",
         "&:focus": {
           width: "20ch",
+          paddingRight: "110px",
         },
       },
+    },
+    nav: {
+      width: "500px",
+      display: "flex",
+      justifyContent: "space-evenly",
+      alignItems: "center",
     },
   })
 );
@@ -162,32 +146,32 @@ function Header() {
         <Grid container className={classes.all}>
           <Grid item className={classes.head}>
             <h2 className={classes.cardH2}>
-              <NavLink to="/">Квадрокоптер</NavLink>
+              <NavLink to="/">Квадрокоптеры</NavLink>
             </h2>
-              <Typography align="center"></Typography>
-              <FormControl className={classes.margin}>
-                <InputLabel htmlFor="demo-customized-select-native">
-                  КАТЕГОРИИ
-                </InputLabel>
-                <NativeSelect
-                  id="demo-customized-select-native"
+            <Paper>
+              <InputLabel id="demo-customized-select-label">
+                КАТЕГОРИИ
+              </InputLabel>
+              <FormControl>
+                <Select
                   value={category}
                   onChange={handleAddCategory}
-                  input={<BootstrapInput />}
+                  inputProps={{ "aria-label": "Without label" }}
                 >
                   {categories.map((item) => (
                     <MenuItem key={item.value} value={item._id}>
                       {item.name}
                     </MenuItem>
                   ))}
-                </NativeSelect>
-                </FormControl>
-                
-            <Grid item className={classes.links}>
-              <div className={classes.search}>
-                <div className={classes.searchIcon}>
+                </Select>
+              </FormControl>
+            </Paper>
+            <Grid className={classes.nav}>
+              <Box className={classes.search}>
+                <Box className={classes.searchIcon}>
                   <SearchIcon />
-                </div>
+                </Box>
+
                 <InputBase
                   placeholder="Search…"
                   classes={{
@@ -198,10 +182,9 @@ function Header() {
                   value={filter}
                   onChange={(e) => dispatch(setFilterText(e.target.value))}
                 />
-              </div>
+              </Box>
               <ShoppingCartOutlinedIcon className={classes.cart} to="/sss" />
-
-              <NavLink className={classes.link} to={"/signin"}>
+              <NavLink className={classes.link} to={"/singin"}>
                 <AccountCircleOutlinedIcon />
               </NavLink>
             </Grid>
@@ -219,13 +202,20 @@ function Header() {
               Квадрокоптеры
             </NavLink>
           </h2>
-          <Paper>
-            <Typography align="center"></Typography>
+          <Paper className={classes.select}>
             <FormControl>
+              <InputLabel
+                id="demo-controlled-open-select"
+                className={classes.selectus}
+              >
+                КАТЕГОРИИ
+              </InputLabel>
               <Select
+                labelId="demo-controlled-open-select-label"
+                id="demo-controlled-open-select"
                 value={category}
                 onChange={handleAddCategory}
-                inputProps={{ "aria-label": "Without label" }}
+                className={classes.sel}
               >
                 {categories.map((item) => (
                   <MenuItem key={item.value} value={item._id}>
@@ -235,25 +225,28 @@ function Header() {
               </Select>
             </FormControl>
           </Paper>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-              value={filter}
-              onChange={(e) => dispatch(setFilterText(e.target.value))}
-            />
-          </div>
-          <ShoppingCartOutlinedIcon className={classes.cart} to="/sss" />
-          <NavLink className={classes.link} to={"/addproduct"}>
-            Личный кабинет
-          </NavLink>
+          <Grid className={classes.nav}>
+            <Box className={classes.search}>
+              <Box className={classes.searchIcon}>
+                <SearchIcon />
+              </Box>
+
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+                value={filter}
+                onChange={(e) => dispatch(setFilterText(e.target.value))}
+              />
+            </Box>
+            <ShoppingCartOutlinedIcon className={classes.cart} to="/sss" />
+            <NavLink className={classes.link} to={"/addproduct"}>
+              <AccountCircleOutlinedIcon />
+            </NavLink>
+          </Grid>
         </Grid>
       </Grid>
     </Container>
