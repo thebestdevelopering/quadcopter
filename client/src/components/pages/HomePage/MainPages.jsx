@@ -41,10 +41,8 @@ const useStyles = makeStyles((theme) =>
       width:"1200px",
       display:"flex",
       margin: "auto",
-    },
-    content: {
-      display: "flex",
-      justifyContent: "space-between"
+      
+      
     }
     
   })
@@ -91,9 +89,7 @@ function MainPages(props) {
         </Box>
         {products?.map((item, index) => {
           return (
-            <Grid className={classes.content}>
-            <CardActionArea  className={classes.content}>
-              <Grid >
+            <CardActionArea>
               <CardMedia className={classes.media} image={item.pathImages} />
               <ShoppingCartOutlinedIcon />
 
@@ -106,6 +102,11 @@ function MainPages(props) {
               <Box component="fieldset" mb={3} borderColor="transparent">
                 <Rating
                   name="simple-controlled"
+
+                  // value={value}
+                  // onChange={(event, newValue) => {
+                  //   setValue(newValue);
+                  //}}
                 />
               </Box>
 
@@ -121,9 +122,7 @@ function MainPages(props) {
                   Удалить
                 </button>
               </Grid>
-              </Grid>
             </CardActionArea>
-            </Grid>
           );
         })}
       </Card>

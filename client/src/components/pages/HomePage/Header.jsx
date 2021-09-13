@@ -8,10 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 
-
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
-
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -29,9 +27,7 @@ const useStyles = makeStyles((theme) =>
       alignItems: "center",
     },
 
-    all: {
-
-    },
+    all: {},
 
     cardH2: {
       color: "black",
@@ -50,7 +46,7 @@ const useStyles = makeStyles((theme) =>
       marginTop: "5px",
       color: "black",
       textDecoration: "none",
-      marginRight: "20px"
+      marginRight: "20px",
     },
     cart: {
       color: "black",
@@ -126,7 +122,7 @@ function Header() {
                   onChange={(e) => dispatch(setFilterText(e.target.value))}
                 />
               </div>
-              <ShoppingCartOutlinedIcon className={classes.cart} />
+              <ShoppingCartOutlinedIcon className={classes.cart} to="/sss" />
 
               <NavLink className={classes.link} to={"/signin"}>
                 <AccountCircleOutlinedIcon />
@@ -146,6 +142,7 @@ function Header() {
               Квадрокоптеры
             </NavLink>
           </h2>
+
           <Grid item className={classes.links}>
             <input
               type="text"

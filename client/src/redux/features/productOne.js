@@ -1,4 +1,5 @@
 const initialState = {
+
   item: [],
   loading: false,
 };
@@ -30,3 +31,4 @@ console.log(res)
     dispatch({ type: "/product/fulfilled", payload: json });
   };
 };
+
