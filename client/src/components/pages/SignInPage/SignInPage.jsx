@@ -16,6 +16,7 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { NavLink } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -142,8 +143,12 @@ function SignInPage() {
               onClick={handleSubmit}
               disabled={signingIn}
             >
-              Sign In
+              Вход
             </Button>
+            
+            <NavLink  to={"/signup"}>
+                Зарегестрироваться
+              </NavLink>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

@@ -4,13 +4,9 @@ import Home from "./pages/HomePage";
 import AddProduct from "./pages/ProfilePages/AddProduct";
 import SignInPage from "./pages/SignInPage/SignInPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
-import MainCategories from "./pages/HomePage/MainCategories";
-import AddCategory from "./pages/ProfilePages/AddCategory";
-import ProfilePages from "./pages/ProfilePages/ProfilePages";
-import Test from "./pages/ProfilePages/Test";
 import EditProduct from "./pages/ProfilePages/EditProduct";
 
-// import MainPagesProduct from "./pages/HomePage/MainPagesProduct";
+import MainPagesProduct from "./pages/HomePage/MainPagesProduct";
 
 
 function App() {
@@ -19,7 +15,7 @@ function App() {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/signup">
+          <Route path="/signup" exact>
             <SignUpPage />
           </Route>
           <Route path="/signin">
@@ -31,11 +27,11 @@ function App() {
           <Route path="/addproduct" exact>
             <AddProduct />
           </Route>
-          <Route path="/editproduct/:id" exact>
+          <Route path="/editproduct" exact>
             <EditProduct />
           </Route>
           <Route path="/t" exact>
-          {/* <MainPagesProduct/> */}
+          <MainPagesProduct/>
           </Route>
          
           {/* <Redirect to="/signin" /> */}

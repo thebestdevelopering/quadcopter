@@ -8,11 +8,11 @@ import { withStyles } from "@material-ui/core/styles";
 import InputBase from "@material-ui/core/InputBase";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { editProducts } from "../../../redux/features/products";
-
-import { FormControl, MenuItem, Select } from "@material-ui/core";
-=======
-
-
+import {
+  FormControl,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import { loadCategories } from "../../../redux/features/categories";
@@ -74,10 +74,9 @@ function EditProduct() {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [id, setId] = useState("");
-
-  const [image, setImage] = useState("");
   const categories = useSelector((state) => state.categories.items);
   console.log(categories);
+  
 
 
   const handleAddName = (e) => {
@@ -96,14 +95,14 @@ function EditProduct() {
   };
 
   const handleAddProduct = () => {
-
-    dispatch(editProducts(id, name, price, category, image));
-
+    
+    dispatch(editProducts(id, name, price,  category));
   };
 
   const handleAddId = (e) => {
     setId(e.target.value);
   };
+
 
   useEffect(() => {
     dispatch(loadCategories());
@@ -132,7 +131,15 @@ function EditProduct() {
         onChange={handleAddName}
         variant="outlined"
       />
-     
+      <TextField
+        id="outlined-multiline-static"
+        label="Выберите категорию"
+        multiline
+        rows={1}
+        value={category}
+        onChange={handleAddCategory}
+        variant="outlined"
+      />
       <TextField
         id="outlined-multiline-static"
         label="Введите стоимость"
@@ -165,7 +172,6 @@ function EditProduct() {
       <div>
         <Button onChange={handleAddImage} variant="contained">
           <input
-            
             accept="image/*"
             id="contained-button-file"
             multiple
