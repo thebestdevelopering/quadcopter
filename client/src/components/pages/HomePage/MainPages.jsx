@@ -112,6 +112,12 @@ const useStyles = makeStyles((theme) =>
       padding: "12px 25px",
       fontSize: "20px",
     },
+
+    btn: {
+      marginTop: "10px",
+      padding: "12px 15px",
+      fontSize: "16px",
+    },
     fbsale: {
       fontSize: "20px",
       display: "inline",
@@ -124,6 +130,18 @@ const useStyles = makeStyles((theme) =>
       textDecoration: "line-through",
       color: "#030D15",
       opacity: "50%",
+    },
+    allbrand: {
+      color: "#C72535",
+      fontFamily: "Hind Siliguri",
+      textAlign: "center",
+    },
+    allbrands: {
+      color: "black",
+      fontFamily: "Hind Siliguri",
+      textAlign: "center",
+      fontSize: "30px",
+      fontWeight: "600"
     },
   })
 );
@@ -194,7 +212,13 @@ function MainPages() {
           />
         </div>
       </div>
-      <div>
+      <Grid>
+      <Typography className={classes.allbrand}>
+            NEW PRODUCTS
+          </Typography>
+      <Typography  className={classes.allbrands}>
+        POPULAR PRODUCTS
+      </Typography>
         <Card spacing={5} className={classes.root}>
           {products?.map((item) => {
             return (
@@ -212,16 +236,9 @@ function MainPages() {
                   </CardContent>
                   <Box className={classes.productinfo}>{item.price}</Box>
 
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                    className={classes.buy}
-                  >
-                    Купить
-                    <ShoppingCartOutlinedIcon />
-                  </Typography>
-                  <Link to="/editproduct">Изменить</Link>
+                  <Button variant="contained" color="primary" className={classes.btns}>
+              Купить
+            </Button>
                   <Typography>
                     {/* <Typography>
                       {categories?.map((items) => {
@@ -231,20 +248,20 @@ function MainPages() {
                     {/* </Typography> */}
                   </Typography>
                   <Grid>
-                    <button
+                    {/* <button
                       onClick={() => {
                         handleDelete(item._id);
                       }}
                     >
                       Удалить
-                    </button>
+                    </button> */}
                   </Grid>
                 </CardActionArea>
               </div>
             );
           })}
         </Card>
-      </div>
+      </Grid>
     </>
   );
 }
