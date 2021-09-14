@@ -264,12 +264,10 @@ function Header() {
                   Категория
                 </MenuItem>
                 {categories.map((item) => (
-                  <MenuItem
-                    key={item.value}
-                    value={item._id}
-                   
-                  >
-                    <Link to={`/category/${item._id}`}  className={classes.navcat}>{item.name}</Link>
+                  <MenuItem key={item.value} value={item._id}>
+                    <Link textDecoration="none" to={`/category/${item._id}`}>
+                      {item.name}
+                    </Link>
                   </MenuItem>
                 ))}
               </Select>
