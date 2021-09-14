@@ -1,7 +1,6 @@
 import {
   Grid,
   Card,
-  CardActionArea,
   CardMedia,
   CardContent,
   Typography,
@@ -9,14 +8,10 @@ import {
   MenuItem,
   Button,
 } from "@material-ui/core/";
-import Rating from "@material-ui/lab/Rating";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { removeProducts } from "../../../redux/features/products";
-import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
-import { useEffect } from "react";
-import { loadCategories } from "../../../redux/features/categories";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -53,11 +48,23 @@ const useStyles = makeStyles((theme) =>
       marginBottom: "50px",
       border: "1px solid #FAFAFA",
       alignContent: "center",
+      "&:hover": {
+        background: "#f2f2f2",
+      },
     },
 
     productinfo: {
       marginLeft: "15px",
+      fontSize: "27px",
+      fontWeight: "600",
+      fontFamily: "Hind Siliguri",
+    },
+
+    productname: {
+      marginTop: "15px",
       fontSize: "20px",
+      fontWeight: "400",
+      fontFamily: "Hind Siliguri",
     },
 
     buy: {
@@ -85,16 +92,6 @@ const useStyles = makeStyles((theme) =>
       display: "inline",
       padding: "0px 10px",
     },
-    /* Vector */
-
-// position: absolute;
-// left: 17.57%;
-// right: 81.97%;
-// top: 0.67%;
-// bottom: 99.19%;
-
-// /* p */
-// background: #247CC0;
 
     fbinfo: {
       marginTop: "20px",
@@ -113,10 +110,12 @@ const useStyles = makeStyles((theme) =>
       fontSize: "20px",
     },
 
-    btn: {
+    btns: {
+      marginLeft: "15px",
       marginTop: "10px",
       padding: "12px 15px",
       fontSize: "16px",
+      marginBottom: "15px",
     },
     fbsale: {
       fontSize: "20px",
@@ -141,7 +140,31 @@ const useStyles = makeStyles((theme) =>
       fontFamily: "Hind Siliguri",
       textAlign: "center",
       fontSize: "30px",
-      fontWeight: "600"
+      fontWeight: "600",
+      marginTop: "10px",
+    },
+
+    info: {
+      height: "280px",
+    },
+    arr: {
+      margin: "auto",
+      width: "550px",
+      display: "flex",
+      justifyContent: "space-between",
+      marginBottom: "30px",
+      marginTop: "20px",
+    },
+
+    spisok: {
+      fontFamily: "Hind Siliguri",
+      fontSize: "14px",
+    },
+    spisok1: {
+      fontFamily: "Hind Siliguri",
+      fontSize: "14px",
+      color: "#C72535",
+      fontWeight: "500",
     },
   })
 );
@@ -149,8 +172,6 @@ const useStyles = makeStyles((theme) =>
 function MainPages() {
   const dispatch = useDispatch();
   const classes = useStyles();
-
-  // const categories = useSelector((state) => state.categories.items);
   const products = useSelector((state) => {
     const { products } = state;
 
@@ -169,10 +190,6 @@ function MainPages() {
   const handleDelete = (id) => {
     dispatch(removeProducts(id));
   };
-
-  // useEffect(() => {
-  //   dispatch(loadCategories());
-  // }, [dispatch]);
   return (
     <>
       <div className={classes.reklBlock}>
@@ -213,51 +230,46 @@ function MainPages() {
         </div>
       </div>
       <Grid>
-      <Typography className={classes.allbrand}>
-            NEW PRODUCTS
-          </Typography>
-      <Typography  className={classes.allbrands}>
-        POPULAR PRODUCTS
-      </Typography>
+        <Typography className={classes.allbrand}>NEW PRODUCTS</Typography>
+        <Typography className={classes.allbrands}>POPULAR PRODUCTS</Typography>
+        <Grid className={classes.arr}>
+          <Typography className={classes.spisok1}>BEST SELLERS</Typography>
+          <Typography className={classes.spisok}>SPECIAL OFFERS</Typography>
+          <Typography className={classes.spisok}>FEATURED IN</Typography>
+          <Typography className={classes.spisok}>RECENT ARRIVAL</Typography>
+        </Grid>
         <Card spacing={5} className={classes.root}>
           {products?.map((item) => {
             return (
-              <div className={classes.content}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image={item.pathImages}
-                  />
-
+              <Grid className={classes.content}>
+                <Grid className={classes.info}>
+                  <NavLink to={`/product/edit/${item._id}`}>
+                    <CardMedia
+                      className={classes.media}
+                      image={item.pathImages}
+                    />
+                  </NavLink>
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                      className={classes.productname}
+                    >
                       {item.name}
                     </Typography>
                   </CardContent>
-                  <Box className={classes.productinfo}>{item.price}</Box>
-
-                  <Button variant="contained" color="primary" className={classes.btns}>
-              Купить
-            </Button>
-                  <Typography>
-                    {/* <Typography>
-                      {categories?.map((items) => {
-                      return (
-                      {items.name})
-                    })} */}
-                    {/* </Typography> */}
-                  </Typography>
-                  <Grid>
-                    {/* <button
-                      onClick={() => {
-                        handleDelete(item._id);
-                      }}
-                    >
-                      Удалить
-                    </button> */}
-                  </Grid>
-                </CardActionArea>
-              </div>
+                  <Box className={classes.productinfo}>{item.price} P</Box>
+                </Grid>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.btns}
+                >
+                  Купить
+                </Button>
+                <Grid></Grid>
+              </Grid>
             );
           })}
         </Card>

@@ -8,16 +8,12 @@ import { withStyles } from "@material-ui/core/styles";
 import InputBase from "@material-ui/core/InputBase";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { editProducts } from "../../../redux/features/products";
-import {
-  FormControl,
-  MenuItem,
-  Select,
-} from "@material-ui/core";
+import { FormControl, MenuItem, Select } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import { loadCategories } from "../../../redux/features/categories";
 import { useEffect } from "react";
-
+import MainPagesProduct from "../HomePage/MainPagesProduct";
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -76,8 +72,6 @@ function EditProduct() {
   const [id, setId] = useState("");
   const categories = useSelector((state) => state.categories.items);
   console.log(categories);
-  
-
 
   const handleAddName = (e) => {
     setName(e.target.value);
@@ -95,14 +89,12 @@ function EditProduct() {
   };
 
   const handleAddProduct = () => {
-    
-    dispatch(editProducts(id, name, price,  category));
+    dispatch(editProducts(id, name, price, category));
   };
 
   const handleAddId = (e) => {
     setId(e.target.value);
   };
-
 
   useEffect(() => {
     dispatch(loadCategories());
@@ -111,6 +103,7 @@ function EditProduct() {
   return (
     <Container>
       <Header />
+      <MainPagesProduct />
       <h3>Изменение товара</h3>
       <TextField
         id="outlined-multiline-static"

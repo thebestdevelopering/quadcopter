@@ -6,6 +6,9 @@ import {
   InputLabel,
   Box,
   Input,
+  CardMedia,
+  Card,
+  Typography,
 } from "@material-ui/core";
 import React from "react";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
@@ -33,7 +36,7 @@ const useStyles = makeStyles((theme) =>
     head: {
       width: "100%",
       height: "90px",
-      background: " #e5e5e5",
+      background: " #F2F2F2",
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
@@ -68,18 +71,16 @@ const useStyles = makeStyles((theme) =>
       alignItems: "baseline",
       width: "140px",
     },
-    selectus: {
-      marginLeft: "10px",
-      color: "black",
-    },
     sel: {
       marginRight: "110px",
       width: "140px",
+      paddingLeft: "10px",
+      backgroundColor: "#F2F2F2",
     },
     search: {
       position: "relative",
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: "#E6EDF2",
+      backgroundColor: "#F2F2F9",
       ginLeft: 0,
       width: "100%",
       [theme.breakpoints.up("sm")]: {
@@ -120,6 +121,23 @@ const useStyles = makeStyles((theme) =>
       justifyContent: "space-evenly",
       alignItems: "center",
     },
+    logoimg: {
+      height: "70px",
+      marginTop: "10px",
+    },
+
+    logolink: {
+      display: "flex",
+      alignItems: "center",
+      fontSize: "14px",
+      marginLeft: "40px",
+      textDecoration: "none",
+      color: "primary",
+      fontWeight: "700"
+    },
+    logolinks: {
+      marginTop: "13px",
+    },
   })
 );
 
@@ -143,80 +161,37 @@ function Header() {
   if (!token) {
     return (
       <Container className={classes.cardGrid} maxWidth="100%">
-        <Grid container className={classes.all}>
-          <Grid item className={classes.head}>
-            <h2 className={classes.cardH2}>
-              <NavLink to="/">Квадрокоптеры</NavLink>
-            </h2>
-            <Paper>
-              <InputLabel id="demo-customized-select-label">
-                КАТЕГОРИИ
-              </InputLabel>
-              <FormControl>
-                <Select
-                  value={category}
-                  onChange={handleAddCategory}
-                  inputProps={{ "aria-label": "Without label" }}
-                >
-                  {categories.map((item) => (
-                    <MenuItem key={item.value} value={item._id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Paper>
-            <Grid className={classes.nav}>
-              <Box className={classes.search}>
-                <Box className={classes.searchIcon}>
-                  <SearchIcon />
-                </Box>
-
-                <InputBase
-                  placeholder="Search…"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  inputProps={{ "aria-label": "search" }}
-                  value={filter}
-                  onChange={(e) => dispatch(setFilterText(e.target.value))}
-                />
-              </Box>
-              <ShoppingCartOutlinedIcon className={classes.cart} to="/sss" />
-              <NavLink className={classes.link} to={"/singin"}>
-                <AccountCircleOutlinedIcon />
-              </NavLink>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Container>
-    );
-  }
-  return (
-    <Container className={classes.cardGrid} maxWidth="100%">
       <Grid container className={classes.all}>
         <Grid item className={classes.head}>
-          <h2>
-            <NavLink className={classes.cardH2} to="/">
-              Квадрокоптеры
-            </NavLink>
-          </h2>
+          <Grid>
+            <Typography gutterBottom variant="h5" component="h2">
+              <NavLink
+                className={classes.cardH2}
+                to="/"
+                className={classes.logolink}
+              >
+                <Grid className={classes.logolinks}>QUADRO</Grid>
+                <img
+                  className={classes.logoimg}
+                  src="https://raw.githubusercontent.com/thebestdevelopering/quadcopter/main/client/src/11221.png"
+                  alt=""
+                />
+              </NavLink>
+            </Typography>
+          </Grid>
           <Paper className={classes.select}>
             <FormControl>
-              <InputLabel
-                id="demo-controlled-open-select"
-                className={classes.selectus}
-              >
-                КАТЕГОРИИ
-              </InputLabel>
               <Select
-                labelId="demo-controlled-open-select-label"
                 id="demo-controlled-open-select"
                 value={category}
                 onChange={handleAddCategory}
                 className={classes.sel}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
               >
+                <MenuItem value="" disabled>
+                  Категория
+                </MenuItem>
                 {categories.map((item) => (
                   <MenuItem key={item.value} value={item._id}>
                     {item.name}
@@ -243,7 +218,75 @@ function Header() {
               />
             </Box>
             <ShoppingCartOutlinedIcon className={classes.cart} to="/sss" />
-            <NavLink className={classes.link} to={"/addproduct"}>
+            <NavLink className={classes.link} to={"/signin"}>
+              <AccountCircleOutlinedIcon />
+            </NavLink>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Container>
+    );
+  }
+  return (
+    <Container className={classes.cardGrid} maxWidth="100%">
+      <Grid container className={classes.all}>
+        <Grid item className={classes.head}>
+          <Grid>
+            <Typography gutterBottom variant="h5" component="h2">
+              <NavLink
+                className={classes.cardH2}
+                to="/"
+                className={classes.logolink}
+              >
+                <Grid className={classes.logolinks}>QUADRO</Grid>
+                <img
+                  className={classes.logoimg}
+                  src="https://raw.githubusercontent.com/thebestdevelopering/quadcopter/main/client/src/11221.png"
+                  alt=""
+                />
+              </NavLink>
+            </Typography>
+          </Grid>
+          <Paper className={classes.select}>
+            <FormControl>
+              <Select
+                id="demo-controlled-open-select"
+                value={category}
+                onChange={handleAddCategory}
+                className={classes.sel}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <MenuItem value="" disabled>
+                  Категория
+                </MenuItem>
+                {categories.map((item) => (
+                  <MenuItem key={item.value} value={item._id}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Paper>
+          <Grid className={classes.nav}>
+            <Box className={classes.search}>
+              <Box className={classes.searchIcon}>
+                <SearchIcon />
+              </Box>
+
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+                value={filter}
+                onChange={(e) => dispatch(setFilterText(e.target.value))}
+              />
+            </Box>
+            <ShoppingCartOutlinedIcon className={classes.cart} to="/sss" />
+            <NavLink className={classes.link} to={"/profilepage"}>
               <AccountCircleOutlinedIcon />
             </NavLink>
           </Grid>

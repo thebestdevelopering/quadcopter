@@ -171,6 +171,33 @@ export const setFilterText = (text) => {
   };
 };
 
+export const fetchProductsCategory = (id) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    dispatch({ type: "product/fetch-products/pending" });
+    try {
+      const response = await fetch(
+        `http://localhost:4000/product/category/${id}`
+      );
+      const json = await response.json();
+
+      if (json.error) {
+        dispatch({
+          type: "product/fetch-products/rejected",
+          error: "При запросе на сервер произошла ошибка",
+        });
+      } else {
+        dispatch({ type: "product/fetch-products/fulfilled", payload: json });
+      }
+    } catch (e) {
+      dispatch({
+        type: "product/fetch-products/rejected",
+        error: e.toString(),
+      });
+    }
+  };
+};
+
 export const addProduct = (name, price, image, category, number) => {
   return async (dispatch, getState) => {
     dispatch({ type: "product/post/pending" });
