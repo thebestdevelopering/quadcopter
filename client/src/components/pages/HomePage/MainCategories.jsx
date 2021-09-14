@@ -45,6 +45,7 @@ function MainCategories(props) {
             <Grid className={classes.info}>
               <NavLink to={`/product/edit/${item._id}`}>
                 <CardMedia className={classes.media} image={item.pathImages} />
+                <img src={`/${item.pathImages}`} />
               </NavLink>
               <CardContent>
                 <Typography

@@ -140,6 +140,7 @@ const useStyles = makeStyles((theme) =>
     },
     navcat: {
       textDecoration: "none",
+      color: "black",
     },
   })
 );
@@ -197,7 +198,13 @@ function Header() {
                   </MenuItem>
                   {categories.map((item) => (
                     <MenuItem key={item.value} value={item._id}>
-                      {item.name}
+                      <Link
+                        textDecoration="none"
+                        to={`/category/${item._id}`}
+                        className={classes.navcat}
+                      >
+                        {item.name}
+                      </Link>
                     </MenuItem>
                   ))}
                 </Select>
@@ -265,7 +272,11 @@ function Header() {
                 </MenuItem>
                 {categories.map((item) => (
                   <MenuItem key={item.value} value={item._id}>
-                    <Link textDecoration="none" to={`/category/${item._id}`}>
+                    <Link
+                      textDecoration="none"
+                      to={`/category/${item._id}`}
+                      className={classes.navcat}
+                    >
                       {item.name}
                     </Link>
                   </MenuItem>
