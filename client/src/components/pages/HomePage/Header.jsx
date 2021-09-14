@@ -199,6 +199,7 @@ function Header() {
                     Категория
                   </MenuItem>
                   {categories.map((item) => (
+                    <MenuItem key={item.value} value={item._id}> 
 
                       <Link
                         textDecoration="none"

@@ -6,6 +6,7 @@ import { loadCategories } from "../../../redux/features/categories";
 import { NavLink, useParams } from "react-router-dom";
 
 import { fetchProductsCategory } from "../../../redux/features/products";
+import { Box, Button, Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 
 
 
