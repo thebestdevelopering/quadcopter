@@ -32,7 +32,7 @@ function App() {
         <Route path="/category/:id" exact>
           <MainCategories />
         </Route>
-        <Route path="/profilepages" exact>
+        <Route path="/profilepage" exact>
           <Profile />
         </Route>
         <Redirect to="/" />

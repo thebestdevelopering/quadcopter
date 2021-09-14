@@ -7,6 +7,8 @@ import { NavLink, useParams } from "react-router-dom";
 
 import { fetchProductsCategory } from "../../../redux/features/products";
 
+
+
 const useStyles = makeStyles((theme) =>
   createStyles({
     card: {
@@ -20,10 +22,12 @@ function MainCategories(props) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const classes = useStyles();
-  const categories = useSelector((state) => state.categories.items);
+
   const products = useSelector((state) => {
     return state.products.product;
   });
+  
+
 
   useEffect(() => {
     dispatch(fetchProductsCategory(id));
@@ -37,22 +41,41 @@ function MainCategories(props) {
   //     dispatch(removeCategory(id));
   //   };
   return (
-    <div>
+
+    <Card spacing={5} className={classes.root}>
       {products?.map((item) => {
         return (
-          <Grid className={classes.card}>
-            {item._id}
-            <Grid>
-              <NavLink className={classes.link} to={`/product/${item._id}`}>
-                {item.name}
+          <Grid className={classes.content}>
+            <Grid className={classes.info}>
+              <NavLink to={`/product/edit/${item._id}`}>
+                <CardMedia className={classes.media} image={item.pathImages} />
+                <img src={`/${item.pathImages}`} />
               </NavLink>
-              <img src={`/${item.pathImages}`} alt="" />
-              <button>Удалить</button>
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                  className={classes.productname}
+                >
+                  {item.name}
+                </Typography>
+              </CardContent>
+              <Box className={classes.productinfo}>{item.price} P</Box>
             </Grid>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.btns}
+            >
+              Купить
+            </Button>
+            <Grid></Grid>
           </Grid>
         );
       })}
-    </div>
+    </Card>
+
   );
 }
 

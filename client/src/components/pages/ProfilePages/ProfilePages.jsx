@@ -132,7 +132,6 @@ function ProfilePages() {
 
   return (
     <Container>
-      <Header />
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
