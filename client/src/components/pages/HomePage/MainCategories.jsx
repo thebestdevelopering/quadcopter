@@ -6,7 +6,8 @@ import { loadCategories } from "../../../redux/features/categories";
 import { NavLink, useParams } from "react-router-dom";
 
 import { fetchProductsCategory } from "../../../redux/features/products";
-import { Box, Button, Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+
+
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -21,10 +22,12 @@ function MainCategories(props) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const classes = useStyles();
+
   const products = useSelector((state) => {
     return state.products.product;
   });
   
+
 
   useEffect(() => {
     dispatch(fetchProductsCategory(id));
@@ -38,6 +41,7 @@ function MainCategories(props) {
   //     dispatch(removeCategory(id));
   //   };
   return (
+
     <Card spacing={5} className={classes.root}>
       {products?.map((item) => {
         return (
@@ -71,6 +75,7 @@ function MainCategories(props) {
         );
       })}
     </Card>
+
   );
 }
 
