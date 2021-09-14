@@ -13,7 +13,7 @@ import {
 import React from "react";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { setFilterText } from "../../../redux/features/products";
 import { useDispatch, useSelector } from "react-redux";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
@@ -133,10 +133,13 @@ const useStyles = makeStyles((theme) =>
       marginLeft: "40px",
       textDecoration: "none",
       color: "primary",
-      fontWeight: "700"
+      fontWeight: "700",
     },
     logolinks: {
       marginTop: "13px",
+    },
+    navcat: {
+      textDecoration: "none",
     },
   })
 );
@@ -161,70 +164,70 @@ function Header() {
   if (!token) {
     return (
       <Container className={classes.cardGrid} maxWidth="100%">
-      <Grid container className={classes.all}>
-        <Grid item className={classes.head}>
-          <Grid>
-            <Typography gutterBottom variant="h5" component="h2">
-              <NavLink
-                className={classes.cardH2}
-                to="/"
-                className={classes.logolink}
-              >
-                <Grid className={classes.logolinks}>QUADRO</Grid>
-                <img
-                  className={classes.logoimg}
-                  src="https://raw.githubusercontent.com/thebestdevelopering/quadcopter/main/client/src/11221.png"
-                  alt=""
-                />
-              </NavLink>
-            </Typography>
-          </Grid>
-          <Paper className={classes.select}>
-            <FormControl>
-              <Select
-                id="demo-controlled-open-select"
-                value={category}
-                onChange={handleAddCategory}
-                className={classes.sel}
-                displayEmpty
-                inputProps={{ "aria-label": "Without label" }}
-              >
-                <MenuItem value="" disabled>
-                  Категория
-                </MenuItem>
-                {categories.map((item) => (
-                  <MenuItem key={item.value} value={item._id}>
-                    {item.name}
+        <Grid container className={classes.all}>
+          <Grid item className={classes.head}>
+            <Grid>
+              <Typography gutterBottom variant="h5" component="h2">
+                <NavLink
+                  className={classes.cardH2}
+                  to="/"
+                  className={classes.logolink}
+                >
+                  <Grid className={classes.logolinks}>QUADRO</Grid>
+                  <img
+                    className={classes.logoimg}
+                    src="https://raw.githubusercontent.com/thebestdevelopering/quadcopter/main/client/src/11221.png"
+                    alt=""
+                  />
+                </NavLink>
+              </Typography>
+            </Grid>
+            <Paper className={classes.select}>
+              <FormControl>
+                <Select
+                  id="demo-controlled-open-select"
+                  value={category}
+                  onChange={handleAddCategory}
+                  className={classes.sel}
+                  displayEmpty
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  <MenuItem value="" disabled>
+                    Категория
                   </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Paper>
-          <Grid className={classes.nav}>
-            <Box className={classes.search}>
-              <Box className={classes.searchIcon}>
-                <SearchIcon />
-              </Box>
+                  {categories.map((item) => (
+                    <MenuItem key={item.value} value={item._id}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Paper>
+            <Grid className={classes.nav}>
+              <Box className={classes.search}>
+                <Box className={classes.searchIcon}>
+                  <SearchIcon />
+                </Box>
 
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ "aria-label": "search" }}
-                value={filter}
-                onChange={(e) => dispatch(setFilterText(e.target.value))}
-              />
-            </Box>
-            <ShoppingCartOutlinedIcon className={classes.cart} to="/sss" />
-            <NavLink className={classes.link} to={"/signin"}>
-              <AccountCircleOutlinedIcon />
-            </NavLink>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                  inputProps={{ "aria-label": "search" }}
+                  value={filter}
+                  onChange={(e) => dispatch(setFilterText(e.target.value))}
+                />
+              </Box>
+              <ShoppingCartOutlinedIcon className={classes.cart} to="/sss" />
+              <NavLink className={classes.link} to={"/signin"}>
+                <AccountCircleOutlinedIcon />
+              </NavLink>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
     );
   }
   return (
@@ -262,7 +265,9 @@ function Header() {
                 </MenuItem>
                 {categories.map((item) => (
                   <MenuItem key={item.value} value={item._id}>
-                    {item.name}
+                    <Link textDecoration="none" to={`/category/${item._id}`}>
+                      {item.name}
+                    </Link>
                   </MenuItem>
                 ))}
               </Select>
