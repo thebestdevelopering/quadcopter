@@ -85,4 +85,13 @@ module.exports.productController = {
       res.json(e);
     }
   },
+
+  getProductsCategory: async (req, res) => {
+    try {
+      const product = await Product.find({ category: req.params.id });
+      res.json(product);
+    } catch (e) {
+      res.json("Ошибка");
+    }
+  },
 };
