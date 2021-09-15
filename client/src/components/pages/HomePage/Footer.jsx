@@ -66,12 +66,12 @@ const useStyles = makeStyles((theme) =>
       width: "180px",
     },
     cli: {
-        fontFamily: "Hind Siliguri",
+      fontFamily: "Hind Siliguri",
       fontSize: "14px",
       listStyleType: "none",
       marginBottom: "0.7em",
       width: "180px",
-    }
+    },
   })
 );
 
@@ -84,7 +84,7 @@ function Footer() {
         <Grid className={classes.footleft}>
           <Typography gutterBottom variant="h5" component="h2">
             <NavLink
-              className={classes.cardH2}
+              
               to="/"
               className={classes.logolink}
             >
