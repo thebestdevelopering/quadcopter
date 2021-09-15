@@ -301,7 +301,9 @@ function Header() {
                 onChange={(e) => dispatch(setFilterText(e.target.value))}
               />
             </Box>
-            <ShoppingCartOutlinedIcon className={classes.cart} to="/sss" />
+            <NavLink to="/user/basket"> 
+              <ShoppingCartOutlinedIcon className={classes.cart} /> 
+            </NavLink>
             <NavLink className={classes.link} to={`/profilepage/`}>
               <AccountCircleOutlinedIcon />
             </NavLink>

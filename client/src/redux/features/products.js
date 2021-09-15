@@ -110,7 +110,7 @@ export const fetchProductsCategory = (id) => {
     dispatch({ type: "product/fetch-products/pending" });
     try {
       const response = await fetch(
-        `http://localhost:4000/product/category/${id}`
+        `http://localhost:4000/product/category/${id} `
       );
       const json = await response.json();
 
@@ -199,25 +199,23 @@ export const setFilterText = (text) => {
   };
 };
 
-export const addProduct = ({
+export const addProduct = (
   name,
   price,
   image,
   category,
   number,
-  description,
-}) => {
+  description
+) => {
   return async (dispatch, getState) => {
     dispatch({ type: "product/post/pending" });
 
     const state = getState();
+    console.log(name);
 
     const response = await fetch(`http://localhost:4000/product`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${state.application.token}`,
-        "Content-type": "application/json",
-      },
+
       body: JSON.stringify({
         name,
         price,
@@ -226,6 +224,10 @@ export const addProduct = ({
         number,
         description,
       }),
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+        "Content-type": "application/json",
+      },
     });
     const json = await response.json();
 
@@ -233,7 +235,7 @@ export const addProduct = ({
       type: "product/post/fulfilled",
       payload: json,
     });
-    //window.location.reload();
+    window.location.reload();
   };
 };
 
