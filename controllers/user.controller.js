@@ -5,12 +5,14 @@ const jwt = require("jsonwebtoken");
 module.exports.userController = {
   registerUser: async (req, res) => {
     try {
-      const { name,email,login, password, ConfirmPassword} = req.body;
+      const { name, email, login, password, ConfirmPassword } = req.body;
 
       const candidate = await User.findOne({ login });
 
       if (candidate) {
-        return res.status(401).json({ error: `Пользователь с логином ${login} уже существует!` });
+        return res
+          .status(401)
+          .json({ error: `Пользователь с логином ${login} уже существует!` });
       }
 
       const hash = await bcrypt.hash(
@@ -59,20 +61,9 @@ module.exports.userController = {
     res.json({ token });
   },
 
-  // createUser: async (req, res) => {
-  //   try {
-  //     await User.create({
-  //       name: req.body.name,
-  //     });
-  //     res.send("Пользователь добавлен");
-  //   } catch (err) {
-  //     res.json(err);
-  //   }
-  // },
-
   getUser: async (req, res) => {
     try {
-      const get = await User.find()
+      const get = await User.find();
       res.json(get);
     } catch (err) {
       res.json(err);
@@ -93,6 +84,16 @@ module.exports.userController = {
       res.json("Пользователь удален");
     } catch (err) {
       res.json(err);
+    }
+  },
+  getUserById: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      res.json(user);
+    } catch (e) {
+      return res.status(400).json({
+        error: e.toString(),
+      });
     }
   },
 };

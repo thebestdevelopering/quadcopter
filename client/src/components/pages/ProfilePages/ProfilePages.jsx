@@ -1,58 +1,102 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { Button, Container, TextField, Box } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  TextField,
+  Box,
+  Grid,
+  Select,
+  MenuItem,
+  IconButton,
+} from "@material-ui/core";
 import { addImage, addProduct } from "../../../redux/features/products";
 import { loadCategories } from "../../../redux/features/categories";
 import { useEffect } from "react";
-import Snackbar from "@material-ui/core/Snackbar";
-import { makeStyles, createStyles, withStyles } from "@material-ui/core/styles";
-import NativeSelect from "@material-ui/core/NativeSelect";
-import InputBase from "@material-ui/core/InputBase";
-import Header from "../HomePage/Header";
-import Footer from "../HomePage/Footer";
-
-const BootstrapInput = withStyles((theme) => ({
-  root: {
-    "label + &": {
-      marginTop: theme.spacing(3),
-      display: "flex",
-    },
-  },
-  input: {
-    width: "163px",
-    height: "30px",
-    borderRadius: 4,
-    position: "relative",
-    backgroundColor: theme.palette.background.paper,
-    border: "1px solid #ced4da",
-    fontSize: 16,
-    padding: "10px 26px 10px 12px",
-    transition: theme.transitions.create(["border-color", "box-shadow"]),
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    "&:focus": {
-      borderRadius: 1,
-      borderColor: "#80bdff",
-      boxShadow: "0 0 0 0.2rem rgba(0,123,255,.25)",
-    },
-  },
-}))(InputBase);
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+      },
+    },
+    rootlabel: {
+      marginLeft: "0px",
+    },
+    inputs: {
+      display: "none",
+    },
     description: {
-      width: "1220px",
+      width: "640px",
+    },
+    content: {
+      display: "flex",
+    },
+    container: {
+      width: "100%",
+      maxWidth: "100%",
+      margin: "0px",
+      padding: "0px",
+    },
+    rightbox: {
+      width: "50%",
+    },
+    leftbox: {
+      width: "50%",
+    },
+    input: {
+      width: "320px",
+      marginBottom: "20px",
+    },
+    priceinp: {
+      width: "320px",
+      marginBottom: "20px",
+      marginLeft: "20px",
+    },
+    numinp: {
+      width: "320px",
+      marginBottom: "20px",
+      marginLeft: "20px",
+    },
+    inputcat: {
+      width: "320px",
+      height: "56px",
+      borderRadius: 4,
+      position: "relative",
+      backgroundColor: theme.palette.background.paper,
+      border: "1px solid #ced4da",
+      fontSize: 18,
+      opacity: "60%",
+      padding: "10px 26px 10px 12px",
+      marginBottom: "20px",
+      transition: theme.transitions.create(["border-color", "box-shadow"]),
+      fontFamily: [
+        "-apple-system",
+        "BlinkMacSystemFont",
+        '"Segoe UI"',
+        "Roboto",
+        '"Helvetica Neue"',
+        "Arial",
+        "sans-serif",
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(","),
+      "&:focus": {
+        borderRadius: 1,
+        borderColor: "#80bdff",
+        boxShadow: "0 0 0 0.2rem rgba(0,123,255,.25)",
+      },
+    },
+    imginput: {
+      height: "40px",
+    },
+    btninput: {
+      marginBottom: "20px",
     },
   })
 );
@@ -61,13 +105,14 @@ function ProfilePages() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const token = useSelector((state) => state.application.token);
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [number, setNumber] = useState("");
   const categories = useSelector((state) => state.categories.items);
-  console.log(categories);
 
   const handleAddName = (e) => {
     setName(e.target.value);
@@ -92,145 +137,128 @@ function ProfilePages() {
   const handleAddImage = async (e) => {
     await dispatch(addImage(e));
   };
-
   const handleAddProduct = () => {
-    dispatch(addProduct(name, price, description, category, number));
+    dispatch(addProduct({ name, price, description, category, number }));
   };
 
   useEffect(() => {
     dispatch(loadCategories());
   }, [dispatch]);
-  console.log(name, price, description, category);
-  //
-  const [state, setState] = React.useState({
-    open: false,
-    vertical: "top",
-    horizontal: "center",
-  });
-
-  const { vertical, horizontal, open } = state;
-
-  const handleClick = (newState) => () => {
-    setState({ open: true, ...newState });
-  };
-
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
-
-  const buttons = (
-    <React.Fragment>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleClick({ vertical: "top", horizontal: "center" })}
-      >
-        Добавить товар
-      </Button>
-    </React.Fragment>
-  );
 
   return (
-    <Container>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        onClose={handleClose}
-        onClose={handleAddProduct}
-        message="Товар добавлен"
-        key={vertical + horizontal}
-      />
-      <h2>Добаление товара</h2>
-      <Box>
-        <Box display="flex" flexDirection="row" className={classes.margin}>
-          <TextField
-            className={classes.input}
-            mr={2}
-            id="outlined-multiline-static"
-            label="Название товара"
-            multiline
-            rows={1}
-            value={name}
-            onChange={handleAddName}
-            variant="outlined"
-          />
+    <Container className={classes.container}>
+      <Grid className={classes.content}>
+        <Grid className={classes.rightbox}>aaa</Grid>
+        <Grid className={classes.leftbox}>
+          <h2>Добавление товара</h2>
+          <Box>
+            <Box className={classes.margin}>
+              <TextField
+                className={classes.input}
+                mr={2}
+                id="outlined-multiline-static"
+                label="Название товара"
+                multiline
+                rows={1}
+                value={name}
+                onChange={handleAddName}
+                variant="outlined"
+              />
+              <TextField
+                className={classes.priceinp}
+                mr={2}
+                id="outlined-multiline-static"
+                label="Введите стоимость"
+                multiline
+                rows={1}
+                value={price}
+                onChange={handleAddPrice}
+                variant="outlined"
+              />
+              <Select
+                id="demo-controlled-open-select"
+                value={category}
+                onChange={handleAddCategory}
+                className={classes.inputcat}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <MenuItem value="" disabled>
+                  Категория
+                </MenuItem>
 
-          <NativeSelect
-            className={classes.input}
-            mr={2}
-            id="outlined-multiline-static"
-            value={category}
-            onChange={handleAddCategory}
-            input={<BootstrapInput />}
-          >
-            <option aria-label="None" value="" />
-            {categories.map((item) => (
-              <option key={item.value} value={item._id}>
-                {item.name}
-              </option>
-            ))}
-          </NativeSelect>
+                {categories.map((item) => (
+                  <MenuItem key={item.value} value={item._id}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+              <TextField
+                className={classes.numinp}
+                mr={2}
+                id="outlined-multiline-static"
+                label="Количество(шт)"
+                multiline
+                rows={1}
+                value={number}
+                onChange={handleAddNumber}
+                variant="outlined"
+              />
 
-          <TextField
-            className={classes.input}
-            mr={2}
-            id="outlined-multiline-static"
-            label="Введите стоимость"
-            multiline
-            rows={1}
-            value={price}
-            onChange={handleAddPrice}
-            variant="outlined"
-          />
-
-          <TextField
-            className={classes.input}
-            mr={2}
-            id="outlined-multiline-static"
-            label="Количество(шт)"
-            multiline
-            rows={1}
-            value={number}
-            onChange={handleAddNumber}
-            variant="outlined"
-          />
+              <TextField
+                className={classes.description}
+                id="outlined-multiline-static"
+                label="Введите описание"
+                multiline
+                rows={6}
+                value={description}
+                onChange={handleAddDescription}
+                variant="outlined"
+              />
+              <Grid className={classes.root}>
+                <input
+                  accept="image/*"
+                  className={classes.inputs}
+                  id="contained-button-file"
+                  type="file"
+                />
+                <label
+                  htmlFor="contained-button-file"
+                  
+                >
+                  <Button color="primary" component="span">
+                    ЗАГРУЗИТЬ ФОТОГРАФИЮ
+                  </Button>
+                </label>
+                <input
+                  accept="image/*"
+                  className={classes.inputs}
+                  id="icon-button-file"
+                  type="file"
+                  onChange={handleAddImage}
+                />
+                <label htmlFor="icon-button-file">
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    component="span"
+                  >
+                    <PhotoCamera />
+                  </IconButton>
+                </label>
+              </Grid>
+            </Box>
+          </Box>
           <Button
-            className={classes.input}
-            onChange={handleAddImage}
             variant="contained"
+            color="primary"
+            onClick={handleAddProduct}
+            className={classes.btninput}
           >
-            <input
-              accept="image/*"
-              id="contained-button-file"
-              multiple
-              type="file"
-              onChange={handleAddImage}
-            />
+            Добавить товар
           </Button>
-        </Box>
-      </Box>
-
-      <br />
-
-      <br />
-      <TextField
-        className={classes.input}
-        className={classes.description}
-        id="outlined-multiline-static"
-        label="Введите описание"
-        multiline
-        rows={6}
-        value={description}
-        onChange={handleAddDescription}
-        variant="outlined"
-      />
-      <br />
-
-      {/* <Button onClick={handleAddProduct} variant="contained" color="primary"> 
-        Добавить 
-      </Button> */}
-      {buttons}
-      <Footer />
+        </Grid>
+      </Grid>
     </Container>
   );
 }

@@ -10,6 +10,5 @@ router.patch("/product/:id", productController.editProduct);
 router.delete("/product/:id",  authMiddleware, productController.deleteProduct);
 router.get("/product/:id", productController.getProductOne);
 router.post("/product/upload", productController.addImage);
-router.get("/product/category/:id", productController.getProductsCategory);
 
 module.exports = router;

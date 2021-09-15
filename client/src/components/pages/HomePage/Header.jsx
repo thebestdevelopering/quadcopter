@@ -3,11 +3,7 @@ import {
   Select,
   FormControl,
   MenuItem,
-  InputLabel,
   Box,
-  Input,
-  CardMedia,
-  Card,
   Typography,
 } from "@material-ui/core";
 import React from "react";
@@ -172,7 +168,6 @@ function Header() {
             <Grid>
               <Typography gutterBottom variant="h5" component="h2">
                 <NavLink
-                  className={classes.cardH2}
                   to="/"
                   className={classes.logolink}
                 >
@@ -248,7 +243,6 @@ function Header() {
           <Grid>
             <Typography gutterBottom variant="h5" component="h2">
               <NavLink
-                className={classes.cardH2}
                 to="/"
                 className={classes.logolink}
               >
@@ -308,7 +302,7 @@ function Header() {
               />
             </Box>
             <ShoppingCartOutlinedIcon className={classes.cart} to="/sss" />
-            <NavLink className={classes.link} to={"/profilepage"}>
+            <NavLink className={classes.link} to={`/profilepage/`}>
               <AccountCircleOutlinedIcon />
             </NavLink>
           </Grid>

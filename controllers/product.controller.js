@@ -17,7 +17,8 @@ module.exports.productController = {
       });
       res.json(product);
     } catch (e) {
-      res.status(401).json("Неверный токен");
+      console.log(e);
+      res.status(401).json("Ошибка при добавлении");
     }
   },
 

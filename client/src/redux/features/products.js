@@ -104,6 +104,33 @@ export const fetchProducts = () => {
   };
 };
 
+export const fetchProductsCategory = (id) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    dispatch({ type: "product/fetch-products/pending" });
+    try {
+      const response = await fetch(
+        `http://localhost:4000/product/category/${id}`
+      );
+      const json = await response.json();
+
+      if (json.error) {
+        dispatch({
+          type: "product/fetch-products/rejected",
+          error: "При запросе на сервер произошла ошибка",
+        });
+      } else {
+        dispatch({ type: "product/fetch-products/fulfilled", payload: json });
+      }
+    } catch (e) {
+      dispatch({
+        type: "product/fetch-products/rejected",
+        error: e.toString(),
+      });
+    }
+  };
+};
+
 export const addImage = (e) => {
   return async (dispatch) => {
     dispatch({ type: "product/image/pending" });
@@ -161,6 +188,7 @@ export const editProducts = (id, name, price, category, image, description) => {
     }).then(() => {
       dispatch({ type: "product/edit", payload: id });
     });
+    window.location.reload();
   };
 };
 
@@ -171,34 +199,14 @@ export const setFilterText = (text) => {
   };
 };
 
-export const fetchProductsCategory = (id) => {
-  return async (dispatch, getState) => {
-    const state = getState();
-    dispatch({ type: "product/fetch-products/pending" });
-    try {
-      const response = await fetch(
-        `http://localhost:4000/product/category/${id}`
-      );
-      const json = await response.json();
-
-      if (json.error) {
-        dispatch({
-          type: "product/fetch-products/rejected",
-          error: "При запросе на сервер произошла ошибка",
-        });
-      } else {
-        dispatch({ type: "product/fetch-products/fulfilled", payload: json });
-      }
-    } catch (e) {
-      dispatch({
-        type: "product/fetch-products/rejected",
-        error: e.toString(),
-      });
-    }
-  };
-};
-
-export const addProduct = (name, price, image, category, number) => {
+export const addProduct = ({
+  name,
+  price,
+  image,
+  category,
+  number,
+  description,
+}) => {
   return async (dispatch, getState) => {
     dispatch({ type: "product/post/pending" });
 
@@ -206,18 +214,18 @@ export const addProduct = (name, price, image, category, number) => {
 
     const response = await fetch(`http://localhost:4000/product`, {
       method: "POST",
-
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+        "Content-type": "application/json",
+      },
       body: JSON.stringify({
         name,
         price,
         image: state.products.image,
         category,
         number,
+        description,
       }),
-      headers: {
-        Authorization: `Bearer ${state.application.token}`,
-        "Content-type": "application/json",
-      },
     });
     const json = await response.json();
 
@@ -225,7 +233,7 @@ export const addProduct = (name, price, image, category, number) => {
       type: "product/post/fulfilled",
       payload: json,
     });
-    window.location.reload();
+    //window.location.reload();
   };
 };
 
