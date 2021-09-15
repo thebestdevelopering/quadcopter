@@ -6,6 +6,8 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import MainCategories from "./pages/HomePage/MainCategories"; 
 import EditProduct from "./pages/ProfilePages/EditProduct"; 
 import Profile from "./pages/ProfilePages"
+import Basket from "./pages/HomePage/basket";
+import MainPagesProduct from "./pages/HomePage/MainPagesProduct";
  
 function App() { 
   return ( 
@@ -20,15 +22,22 @@ function App() {
         <Route path="/" exact> 
           <Home /> 
         </Route> 
-        <Route path="/product/:id" exact> 
+        <Route path="/edit/:id" exact> 
           <EditProduct /> 
         </Route> 
         <Route path="/category/:id" exact> 
-          <MainCategories /> 
+          <MainCategories />
         </Route> 
         <Route path="/profilePage" exact> 
           <Profile />
         </Route> 
+        <Route path="/user/basket" exact> 
+          <Basket />
+        </Route> 
+        <Route path="/product/:id" exact> 
+          <MainPagesProduct />
+        </Route> 
+
         
  
         {/* <Redirect to="/signin" /> */} 
