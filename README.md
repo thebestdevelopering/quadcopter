@@ -10,6 +10,7 @@
 ![gif](https://github.com/thebestdevelopering/quadcopter/blob/main/client/public/1.gif?raw=true)
 
 На сайте реализован поиск товара по имени, вывод товара по категориям.
+
 ![gif](https://github.com/thebestdevelopering/quadcopter/blob/main/client/public/2.gif?raw=true)
 
 В мои задачи входило:
