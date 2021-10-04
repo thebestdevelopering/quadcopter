@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Grid,
   Card,
@@ -5,13 +6,13 @@ import {
   CardContent,
   Typography,
   Box,
-  MenuItem,
   Button,
 } from "@material-ui/core/";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { removeProducts } from "../../../redux/features/products";
+import { NavLink } from "react-router-dom";
+import { userBasket } from "../../../redux/features/application";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -172,6 +173,7 @@ const useStyles = makeStyles((theme) =>
 function MainPages() {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const baskets = useSelector((state) => state.application.basket);
   const products = useSelector((state) => {
     const { products } = state;
 
@@ -185,7 +187,9 @@ function MainPages() {
     });
   });
 
-  console.log(products);
+  const handleAddProductBasket = (item) => {
+    dispatch(userBasket(item));
+  };
 
   const handleDelete = (id) => {
     dispatch(removeProducts(id));
@@ -243,7 +247,7 @@ function MainPages() {
             return (
               <Grid className={classes.content}>
                 <Grid className={classes.info}>
-                  <NavLink to={`/product/edit/${item._id}`}>
+                  <NavLink to={`/product/${item._id}`}>
                     <CardMedia
                       className={classes.media}
                       image={item.pathImages}
@@ -259,8 +263,15 @@ function MainPages() {
                       {item.name}
                     </Typography>
                   </CardContent>
-                  <Box className={classes.productinfo}>{item.price} P</Box>
+                  <Box className={classes.productinfo}>{item.price} ₽</Box>
                 </Grid>
+                <button
+                  onClick={() => {
+                    handleAddProductBasket(item);
+                  }}
+                >
+                  Корзина
+                </button>
                 <Button
                   variant="contained"
                   color="primary"

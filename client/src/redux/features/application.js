@@ -3,6 +3,7 @@ const initialState = {
   signingIn: false,
   error: null,
   token: localStorage.getItem("token"),
+  basket: [],
 };
 
 export default function application(state = initialState, action) {
@@ -46,19 +47,24 @@ export default function application(state = initialState, action) {
         signingIn: false,
         error: action.error,
       };
+    case "basket":
+      return {
+        ...state,
+        basket: [...state.basket, action.payload],
+      };
 
     default:
       return state;
   }
 }
 
-export const createUser = (name,email,login, password,ConfirmPassword) => {
+export const createUser = (name, email, login, password, ConfirmPassword) => {
   return async (dispatch) => {
     dispatch({ type: "application/signup/pending" });
 
     const response = await fetch("http://localhost:4000/user", {
       method: "POST",
-      body: JSON.stringify({ name,email,login, password,ConfirmPassword }),
+      body: JSON.stringify({ name, email, login, password, ConfirmPassword }),
       headers: {
         "Content-type": "application/json",
       },
@@ -69,7 +75,7 @@ export const createUser = (name,email,login, password,ConfirmPassword) => {
     if (json.error) {
       dispatch({ type: "application/signup/rejected", error: json.error });
     } else {
-      dispatch({ type: "application/signup/fulfilled", payload: json });
+      dispatch({ type: "application/signin/fulfilled", payload: json });
     }
   };
 };
@@ -94,6 +100,45 @@ export const auth = (login, password) => {
       dispatch({ type: "application/signin/fulfilled", payload: json });
 
       localStorage.setItem("token", json.token);
+    }
+  };
+};
+export const userBasket = (id) => {
+  return {
+    type: "basket",
+    payload: id,
+  };
+};
+
+export const fetchProductsBasket = (id) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    dispatch({ type: "product/basket/pending" });
+    try {
+      const response = await fetch(
+        `"http://localhost:4000/cart/6141c3a0a38940a0244174e9"`,
+        {
+          headers: {
+            Authorization: `Bearer ${state.application.token}`,
+          },
+        }
+      );
+
+      const json = await response.json();
+
+      if (json.error) {
+        dispatch({
+          type: "product/basket-server/rejected",
+          error: "При запросе на сервер произошла ошибка",
+        });
+      } else {
+        dispatch({ type: "product/basket/fulfilled", payload: json });
+      }
+    } catch (e) {
+      dispatch({
+        type: "product/basket-server/rejected",
+        error: e.toString(),
+      });
     }
   };
 };

@@ -9,7 +9,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { makeStyles, createStyles, withStyles } from "@material-ui/core/styles";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import InputBase from "@material-ui/core/InputBase";
-import Header from "../HomePage/Header";
 import Footer from "../HomePage/Footer";
 
 const BootstrapInput = withStyles((theme) => ({
@@ -100,8 +99,6 @@ function ProfilePages() {
   useEffect(() => {
     dispatch(loadCategories());
   }, [dispatch]);
-  console.log(name, price, description, category);
-  //
   const [state, setState] = React.useState({
     open: false,
     vertical: "top",
@@ -225,12 +222,7 @@ function ProfilePages() {
         variant="outlined"
       />
       <br />
-
-      {/* <Button onClick={handleAddProduct} variant="contained" color="primary"> 
-        Добавить 
-      </Button> */}
       {buttons}
-      <Footer />
     </Container>
   );
 }

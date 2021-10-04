@@ -100,7 +100,6 @@ function AddProduct() {
     dispatch(loadCategories());
   }, [dispatch]);
   console.log(name, price, description, category);
-  //
   const [state, setState] = React.useState({
     open: false,
     vertical: "top",
