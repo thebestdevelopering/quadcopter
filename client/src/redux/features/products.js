@@ -3,7 +3,6 @@ const initialState = {
   product: [],
   filter: "",
   error: null,
-  image: [],
 };
 
 export default function products(state = initialState, action) {
@@ -79,7 +78,7 @@ export const fetchProducts = () => {
     const state = getState();
     dispatch({ type: "product/fetch-products/pending" });
     try {
-      const response = await fetch("http://localhost:4000/product", {
+      const response = await fetch("/product", {
         headers: {
           Authorization: `Bearer ${state.application.token}`,
         },
@@ -109,9 +108,7 @@ export const fetchProductsCategory = (id) => {
     const state = getState();
     dispatch({ type: "product/fetch-products/pending" });
     try {
-      const response = await fetch(
-        `http://localhost:4000/product/category/${id} `
-      );
+      const response = await fetch(`/product/category/${id} `);
       const json = await response.json();
 
       if (json.error) {
@@ -139,7 +136,7 @@ export const addImage = (e) => {
     const data = new FormData();
     data.append("image", files[0]);
 
-    const response = await fetch("http://localhost:4000/product/upload", {
+    const response = await fetch("/product/upload", {
       method: "POST",
       body: data,
     });
@@ -155,7 +152,7 @@ export const addImage = (e) => {
 export const removeProducts = (id) => {
   return (dispatch, getState) => {
     const state = getState();
-    fetch(`http://localhost:4000/product/${id}`, {
+    fetch(`/product/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${state.application.token}`,
@@ -171,7 +168,7 @@ export const removeProducts = (id) => {
 export const editProducts = (id, name, price, category, image, description) => {
   return (dispatch, getState) => {
     const state = getState();
-    fetch(`http://localhost:4000/product/${id}`, {
+    fetch(`/product/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         name,
@@ -202,10 +199,10 @@ export const setFilterText = (text) => {
 export const addProduct = (
   name,
   price,
-  image,
   category,
   number,
-  description
+  description,
+  image
 ) => {
   return async (dispatch, getState) => {
     dispatch({ type: "product/post/pending" });
@@ -213,16 +210,16 @@ export const addProduct = (
     const state = getState();
     console.log(name);
 
-    const response = await fetch(`http://localhost:4000/product`, {
+    const response = await fetch(`/product`, {
       method: "POST",
 
       body: JSON.stringify({
         name,
         price,
-        image: state.products.image,
         category,
         number,
         description,
+        image: state.products.image,
       }),
       headers: {
         Authorization: `Bearer ${state.application.token}`,
@@ -235,7 +232,6 @@ export const addProduct = (
       type: "product/post/fulfilled",
       payload: json,
     });
-    window.location.reload();
   };
 };
 
@@ -243,7 +239,7 @@ export const productByCategories = (id) => {
   return async (dispatch) => {
     dispatch({ type: "category/product/pending", payload: id });
 
-    const response = await fetch(`http://localhost:4000/category/${id}`);
+    const response = await fetch(`/category/${id}`);
     const json = await response.json();
 
     dispatch({ type: "category/product/fulfilled", payload: json });

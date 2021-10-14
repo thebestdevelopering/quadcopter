@@ -1,10 +1,4 @@
-import {
-  Typography,
-  Box,
-  Grid,
-  Container,
-  Button,
-} from "@material-ui/core";
+import { Typography, Box, Grid, Container, Button } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +23,7 @@ const useStyles = makeStyles((theme) =>
       maxWidth: "1340px",
       padding: "0px",
     },
-    
+
     all: {
       display: "flex",
     },
@@ -52,7 +46,7 @@ const useStyles = makeStyles((theme) =>
     },
     del: {
       marginTop: "20px",
-    }
+    },
   })
 );
 
@@ -75,61 +69,59 @@ function MainPagesProduct(props) {
 
   return (
     <Grid className={classes.container}>
-        <Header />
-        
-        {product.map((item) => {
-          if (item._id === id) {
-            return (
-              <Grid >
-                <Grid className={classes.all}>
-                  <Grid className={classes.content}>
-                    <img
-                      src={`/${item.pathImages}`}
-                      alt=""
-                      className={classes.img}
-                    />
-                  </Grid>
-                  <Grid className={classes.info}>
-                    <Typography
-                      gutterBottom
-                      variant="h5"
-                      component="h2"
-                      className={classes.name}
-                    >
-                      {item.name}
-                    </Typography>
-                    <Typography className={classes.price}>
-                      {item.price} ₽
-                    </Typography>
-                    <Typography className={classes.description}>
-                      {item.description}
-                    </Typography>
-                    <ShoppingCartOutlinedIcon />
-                    <Box component="fieldset" mb={3} borderColor="transparent">
-                      <Rating name="simple-controlled" />
-                    </Box>
-                  </Grid>
+      <Header />
+
+      {product.map((item) => {
+        if (item._id === id) {
+          return (
+            <Grid>
+              <Grid className={classes.all}>
+                <Grid className={classes.content}>
+                  <img
+                    src={`/${item.pathImages}`}
+                    alt=""
+                    className={classes.img}
+                  />
                 </Grid>
-                <Link to={`/edit/${item._id}`}>Изменить</Link>
-               
-
-                {/* {item.category} */}
-                <Grid  className={classes.del}>
-                  <NavLink to={`/product/${item._id}`}></NavLink>
-
-                  <Button  variant="contained" color="primary"
-                    onClick={() => {
-                      handleDelete(item._id);
-                    }}
+                <Grid className={classes.info}>
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                    className={classes.name}
                   >
-                    Удалить
-                  </Button>
+                    {item.name}
+                  </Typography>
+                  <Typography className={classes.price}>
+                    {item.price} ₽
+                  </Typography>
+                  <Typography className={classes.description}>
+                    {item.description}
+                  </Typography>
+                  <ShoppingCartOutlinedIcon />
+                  <Box component="fieldset" mb={3} borderColor="transparent">
+                    <Rating name="simple-controlled" />
+                  </Box>
                 </Grid>
               </Grid>
-            );
-          }
-        })}
-     
+              <Link to={`/edit/${item._id}`}>Изменить</Link>
+              <Grid className={classes.del}>
+                <NavLink to={`/product/${item._id}`}></NavLink>
+
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    handleDelete(item._id);
+                  }}
+                >
+                  Удалить
+                </Button>
+              </Grid>
+            </Grid>
+          );
+        }
+      })}
     </Grid>
   );
 }
