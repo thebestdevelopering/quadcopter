@@ -221,6 +221,7 @@ function ProfilePages() {
                   className={classes.inputs}
                   id="contained-button-file"
                   type="file"
+                  onChange={handleAddImage}
                 />
                 <label htmlFor="contained-button-file">
                   <Button color="primary" component="span">

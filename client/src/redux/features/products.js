@@ -40,12 +40,10 @@ export default function products(state = initialState, action) {
     case "product/image/pending":
       return {
         ...state,
-        loading: true,
       };
     case "product/image/fulfilled":
       return {
         ...state,
-        loading: false,
         image: action.payload.image,
       };
     case "product/delete":
@@ -149,6 +147,7 @@ export const addImage = (e) => {
     });
   };
 };
+
 export const removeProducts = (id) => {
   return (dispatch, getState) => {
     const state = getState();
@@ -208,8 +207,6 @@ export const addProduct = (
     dispatch({ type: "product/post/pending" });
 
     const state = getState();
-    console.log(name);
-
     const response = await fetch(`/product`, {
       method: "POST",
 
