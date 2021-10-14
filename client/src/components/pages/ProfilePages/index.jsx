@@ -5,7 +5,6 @@ import Footer from "../HomePage/Footer";
 import Header from "../HomePage/Header";
 import ProfilePages from "./ProfilePages";
 
-
 function Profile() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.products.loading);
@@ -21,7 +20,6 @@ function Profile() {
       <Header />
       <ProfilePages />
       <Footer />
-     
     </>
   );
 }

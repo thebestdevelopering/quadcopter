@@ -14,6 +14,7 @@ import Paper from "@material-ui/core/Paper";
 import { loadCategories } from "../../../redux/features/categories";
 import { useEffect } from "react";
 import MainPagesProduct from "../HomePage/MainPagesProduct";
+import { useParams } from "react-router-dom";
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -63,13 +64,14 @@ const useStyles = makeStyles((theme) =>
 );
 
 function EditProduct() {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const classes = useStyles();
-
+  const [idd, setIdd] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
-  const [id, setId] = useState("");
+
   const categories = useSelector((state) => state.categories.items);
   console.log(categories);
 
@@ -92,8 +94,8 @@ function EditProduct() {
     dispatch(editProducts(id, name, price, category));
   };
 
-  const handleAddId = (e) => {
-    setId(e.target.value);
+  const handleAddId = (id) => {
+    setIdd(id);
   };
 
   useEffect(() => {
@@ -102,18 +104,8 @@ function EditProduct() {
 
   return (
     <Container>
-      <Header />
       <MainPagesProduct />
       <h3>Изменение товара</h3>
-      <TextField
-        id="outlined-multiline-static"
-        label="id"
-        multiline
-        rows={1}
-        value={id}
-        onChange={handleAddId}
-        variant="outlined"
-      />
 
       <TextField
         id="outlined-multiline-static"

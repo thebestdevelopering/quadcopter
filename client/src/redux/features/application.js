@@ -116,7 +116,7 @@ export const fetchProductsBasket = (id) => {
     dispatch({ type: "product/basket/pending" });
     try {
       const response = await fetch(
-        `"http://localhost:4000/cart/6141c3a0a38940a0244174e9"`,
+        "http://localhost:4000/cart/6141c3a0a38940a0244174e9",
         {
           headers: {
             Authorization: `Bearer ${state.application.token}`,

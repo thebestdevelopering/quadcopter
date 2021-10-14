@@ -6,13 +6,15 @@ import {
   CardContent,
   Typography,
   Box,
+  MenuItem,
   Button,
 } from "@material-ui/core/";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { removeProducts } from "../../../redux/features/products";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { userBasket } from "../../../redux/features/application";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -216,7 +218,7 @@ function MainPages() {
           </Typography>
           <Grid className={classes.fbpricesale}>
             <Button variant="contained" color="primary" className={classes.btn}>
-              Купить
+              <Link to="/product/613f69afd48460f130ce27cf"> Купить</Link>
             </Button>
 
             <Typography className={classes.fbsale}>
@@ -265,17 +267,14 @@ function MainPages() {
                   </CardContent>
                   <Box className={classes.productinfo}>{item.price} ₽</Box>
                 </Grid>
-                <button
-                  onClick={() => {
-                    handleAddProductBasket(item);
-                  }}
-                >
-                  Корзина
-                </button>
+
                 <Button
                   variant="contained"
                   color="primary"
                   className={classes.btns}
+                  onClick={() => {
+                    handleAddProductBasket(item);
+                  }}
                 >
                   Купить
                 </Button>
