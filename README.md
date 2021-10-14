@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# repairProject
+=======
 # Маркетплейс квадрокоптеров
 
 Проект представляет собой web-сервис. Продавцы могут реализовывать свои товары, а пользователи их просматривать. После регистрации или авторизации продавцам предоставляется возможность:
@@ -69,3 +72,4 @@ npm run dev
     <img alt="MaterialUI" src="https://img.shields.io/badge/-MaterialUI-blue?style=for-the-badge&logo=MaterialUI&logoColor=white" />
 
   </p>
+>>>>>>> 557b1e875395b9eefdd21a7621fb55dc34647771
