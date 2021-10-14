@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# repairProject
+=======
 # Маркетплейс квадрокоптеров
 
 Проект представляет собой web-сервис. Продавцы могут реализовывать свои товары, а пользователи их просматривать. После регистрации или авторизации продавцам предоставляется возможность:
@@ -9,11 +12,11 @@
 
 ![gif](https://github.com/thebestdevelopering/quadcopter/blob/main/client/public/1.gif?raw=true)
 
-На сайте реализован поиск товара по имени, вывод товара по категориям.
+Поиск товара и вывод товара по категориям.
 
 ![gif](https://github.com/thebestdevelopering/quadcopter/blob/main/client/public/2.gif?raw=true)
 
-В мои задачи входило:
+В данном проекте реализована следующая функциональность:
 
 - Регистрация;
 - Авторизация;
@@ -21,9 +24,12 @@
 - Выгрузка изображений;
 - Добавление новых постов;
 - Удаление добавленных постов;
-- Шапка сайта
+- Редактирование добавленных постов;
+- Вывод товара по категориям
+- Поиск товаров
+- Корзина
 
-При разработке проекта использовал:
+При разработке проекта использованы следующие технологии:
 
 - JavaScript / React (Hooks);
 - redux / redux-thunk / redux-logger для организации стейта;
@@ -31,6 +37,7 @@
 - REST API, асинхронные запросы;
 - classnames / Material-ui;
 - nodeJS, express, mongoDB,
+- Json web token
 
 ## Запуск проекта
 
@@ -65,3 +72,4 @@ npm run dev
     <img alt="MaterialUI" src="https://img.shields.io/badge/-MaterialUI-blue?style=for-the-badge&logo=MaterialUI&logoColor=white" />
 
   </p>
+>>>>>>> 557b1e875395b9eefdd21a7621fb55dc34647771
