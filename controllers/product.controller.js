@@ -4,16 +4,16 @@ const jwt = require("jsonwebtoken");
 
 module.exports.productController = {
   addProduct: async (req, res) => {
-    const { name, price, category, image, description, number } = req.body;
+    const { name, price, category, number, description, image } = req.body;
     try {
       const product = await Product.create({
         user: req.user.id,
-        pathImages: image,
         name,
         price,
         category,
-        description,
         number,
+        description,
+        pathImages: image,
       });
       res.json(product);
     } catch (e) {

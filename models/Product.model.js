@@ -4,16 +4,16 @@ const productSchema = mongoose.Schema(
   {
     name: String,
     price: Number,
-    number: Number,
-    pathImages: String,
-    description: String,
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
+    },
+    number: Number,
+    description: String,
+    pathImages: String,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }

@@ -109,9 +109,9 @@ function ProfilePages() {
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [number, setNumber] = useState("");
+  const [description, setDescription] = useState("");
   const categories = useSelector((state) => state.categories.items);
 
   const handleAddName = (e) => {
@@ -122,10 +122,6 @@ function ProfilePages() {
     setPrice(e.target.value);
   };
 
-  const handleAddDescription = (e) => {
-    setDescription(e.target.value);
-  };
-
   const handleAddCategory = (e) => {
     setCategory(e.target.value);
   };
@@ -134,11 +130,15 @@ function ProfilePages() {
     setNumber(e.target.value);
   };
 
+  const handleAddDescription = (e) => {
+    setDescription(e.target.value);
+  };
+
   const handleAddImage = async (e) => {
     await dispatch(addImage(e));
   };
   const handleAddProduct = () => {
-    dispatch(addProduct({ name, price, description, category, number }));
+    dispatch(addProduct(name, price, category, number, description));
   };
 
   useEffect(() => {
@@ -222,10 +222,7 @@ function ProfilePages() {
                   id="contained-button-file"
                   type="file"
                 />
-                <label
-                  htmlFor="contained-button-file"
-                  
-                >
+                <label htmlFor="contained-button-file">
                   <Button color="primary" component="span">
                     ЗАГРУЗИТЬ ФОТОГРАФИЮ
                   </Button>
