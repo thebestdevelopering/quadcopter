@@ -1,13 +1,10 @@
-<<<<<<< HEAD
-# repairProject
-=======
 # Маркетплейс квадрокоптеров
 
 Проект представляет собой web-сервис. Продавцы могут реализовывать свои товары, а пользователи их просматривать. После регистрации или авторизации продавцам предоставляется возможность:
 
 - добавить, отредактировать, удалить собственные товары;
 
-Демо: <br/>
+Демо: https://quadcopter-mern.herokuapp.com/ <br/>
 Код: https://github.com/thebestdevelopering/quadcopter/
 
 ![gif](https://github.com/thebestdevelopering/quadcopter/blob/main/client/public/1.gif?raw=true)
