@@ -12,6 +12,7 @@ function Cart() {
             <div>
               <img src={item.pathImages} alt="" />
               <div>{item.name}</div>
+              <div>{item.price}</div>
             </div>
           );
         })}
