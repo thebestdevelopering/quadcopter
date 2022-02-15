@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Grid,
   Card,
@@ -6,180 +6,183 @@ import {
   CardContent,
   Typography,
   Box,
-  MenuItem,
   Button,
-} from "@material-ui/core/";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
-import { removeProducts } from "../../../redux/features/products";
-import { NavLink, Link } from "react-router-dom";
-import { userBasket } from "../../../redux/features/application";
-import { useState } from "react";
+} from '@material-ui/core/';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
+import { NavLink, Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     img: {
-      width: "300px",
+      width: '300px',
     },
 
     root: {
-      maxWidth: "100%",
-      display: "flex",
-      justifyContent: "space-between",
-      flexWrap: "wrap",
-      margin: "0px 100px",
-      boxShadow: "none",
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      margin: '0px 100px',
+      boxShadow: 'none',
     },
     media: {
       height: 140,
     },
     reklImg: {
-      width: "600px",
+      width: '600px',
     },
     reklText: {
-      width: "600px",
-      marginTop: "100px",
+      width: '600px',
+      marginTop: '100px',
     },
     reklBlock: {
-      width: "1200px",
-      display: "flex",
-      margin: "auto",
+      width: '1200px',
+      display: 'flex',
+      margin: 'auto',
     },
 
     content: {
-      width: "300px",
-      marginBottom: "50px",
-      border: "1px solid #FAFAFA",
-      alignContent: "center",
-      "&:hover": {
-        background: "#f2f2f2",
+      width: '300px',
+      marginBottom: '50px',
+      border: '1px solid #FAFAFA',
+      alignContent: 'center',
+      '&:hover': {
+        background: '#f2f2f2',
       },
     },
 
     productinfo: {
-      marginLeft: "15px",
-      fontSize: "27px",
-      fontWeight: "600",
-      fontFamily: "Hind Siliguri",
+      marginLeft: '15px',
+      fontSize: '27px',
+      fontWeight: '600',
+      fontFamily: 'Hind Siliguri',
     },
 
     productname: {
-      marginTop: "15px",
-      fontSize: "20px",
-      fontWeight: "400",
-      fontFamily: "Hind Siliguri",
+      marginTop: '15px',
+      fontSize: '20px',
+      fontWeight: '400',
+      fontFamily: 'Hind Siliguri',
     },
 
     buy: {
-      marginLeft: "17px",
+      marginLeft: '17px',
     },
 
     h2: {
-      marginBottom: "0px",
+      marginBottom: '0px',
     },
     t: {
-      fontFamily: "Hind Siliguri",
+      fontFamily: 'Hind Siliguri',
     },
     firstbrand: {
-      color: "#C72535",
-      fontFamily: "Hind Siliguri",
+      color: '#C72535',
+      fontFamily: 'Hind Siliguri',
     },
     fbname: {
-      fontSize: "61px",
-      lineHeight: "1.4",
+      fontSize: '61px',
+      lineHeight: '1.4',
     },
     fbnameline: {
-      fontSize: "61px",
-      color: "#247CC0",
-      background: "#E9F2F9",
-      display: "inline",
-      padding: "0px 10px",
+      fontSize: '61px',
+      color: '#247CC0',
+      background: '#E9F2F9',
+      display: 'inline',
+      padding: '0px 10px',
     },
 
     fbinfo: {
-      marginTop: "20px",
-      fontFamily: "Hind Siliguri",
-      color: "#030D15",
-      opacity: "90%",
+      marginTop: '20px',
+      fontFamily: 'Hind Siliguri',
+      color: '#030D15',
+      opacity: '90%',
     },
 
     fbpricesale: {
-      display: "flex",
-      alignItems: "baseline",
+      display: 'flex',
+      alignItems: 'baseline',
     },
     btn: {
-      marginTop: "30px",
-      padding: "12px 25px",
-      fontSize: "20px",
+      marginTop: '30px',
+      padding: '12px 25px',
+      fontSize: '20px',
     },
-
     btns: {
-      marginLeft: "15px",
-      marginTop: "10px",
-      padding: "12px 15px",
-      fontSize: "16px",
-      marginBottom: "15px",
+      marginLeft: '15px',
+      marginTop: '10px',
+      padding: '12px 15px',
+      fontSize: '16px',
+      marginBottom: '15px',
+    },
+    btnsproduct: {
+      textDecoration: 'none',
+    },
+    btnstext: {
+      width: '70px',
+    },
+    btnlink: {
+      textDecoration: 'none',
+      color: 'white',
     },
     fbsale: {
-      fontSize: "20px",
-      display: "inline",
-      marginLeft: "35px",
+      fontSize: '20px',
+      display: 'inline',
+      marginLeft: '35px',
     },
     fbprice: {
-      fontSize: "20px",
-      display: "inline",
-      marginLeft: "18px",
-      textDecoration: "line-through",
-      color: "#030D15",
-      opacity: "50%",
+      fontSize: '20px',
+      display: 'inline',
+      marginLeft: '18px',
+      textDecoration: 'line-through',
+      color: '#030D15',
+      opacity: '50%',
     },
     allbrand: {
-      color: "#C72535",
-      fontFamily: "Hind Siliguri",
-      textAlign: "center",
+      color: '#C72535',
+      fontFamily: 'Hind Siliguri',
+      textAlign: 'center',
     },
     allbrands: {
-      color: "black",
-      fontFamily: "Hind Siliguri",
-      textAlign: "center",
-      fontSize: "30px",
-      fontWeight: "600",
-      marginTop: "10px",
+      color: 'black',
+      fontFamily: 'Hind Siliguri',
+      textAlign: 'center',
+      fontSize: '30px',
+      fontWeight: '600',
+      marginTop: '10px',
     },
 
     info: {
-      height: "280px",
+      height: '280px',
     },
     arr: {
-      margin: "auto",
-      width: "550px",
-      display: "flex",
-      justifyContent: "space-between",
-      marginBottom: "30px",
-      marginTop: "20px",
+      margin: 'auto',
+      width: '550px',
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginBottom: '30px',
+      marginTop: '20px',
     },
 
     spisok: {
-      fontFamily: "Hind Siliguri",
-      fontSize: "14px",
+      fontFamily: 'Hind Siliguri',
+      fontSize: '14px',
     },
     spisok1: {
-      fontFamily: "Hind Siliguri",
-      fontSize: "14px",
-      color: "#C72535",
-      fontWeight: "500",
+      fontFamily: 'Hind Siliguri',
+      fontSize: '14px',
+      color: '#C72535',
+      fontWeight: '500',
     },
   })
 );
 
 function MainPages() {
-  const dispatch = useDispatch();
   const classes = useStyles();
-  const baskets = useSelector((state) => state.application.basket);
   const products = useSelector((state) => {
     const { products } = state;
 
-    if (products.filter === "") {
+    if (products.filter === '') {
       return products.product;
     }
 
@@ -189,13 +192,6 @@ function MainPages() {
     });
   });
 
-  const handleAddProductBasket = (item) => {
-    dispatch(userBasket(item));
-  };
-
-  const handleDelete = (id) => {
-    dispatch(removeProducts(id));
-  };
   return (
     <>
       <div className={classes.reklBlock}>
@@ -205,24 +201,30 @@ function MainPages() {
           </Typography>
           <Typography className={classes.fbname}>
             <Typography className={classes.fbnameline}>
-              {" "}
+              {' '}
               XIRO XPLORER V
-            </Typography>{" "}
+            </Typography>{' '}
             1080P Full HD
           </Typography>
           <Typography className={classes.fbinfo}>
-            {" "}
+            {' '}
             Встречайте один из самых крутых дронов для съемки видео — Xiro
             Xplorer V. Этот коптер, вобрал в себя самые передовые технологии и
             инновации, оставив всех своих конкурентов далеко позади.
           </Typography>
           <Grid className={classes.fbpricesale}>
             <Button variant="contained" color="primary" className={classes.btn}>
-              <Link to="/product/613f69afd48460f130ce27cf"> Купить</Link>
+              <Link
+                to="/product/613f69afd48460f130ce27cf"
+                className={classes.btnlink}
+              >
+                {' '}
+                View
+              </Link>
             </Button>
 
             <Typography className={classes.fbsale}>
-              $ 249.90{" "}
+              $ 249.90{' '}
               <Typography className={classes.fbprice}>$ 249.99</Typography>
             </Typography>
           </Grid>
@@ -249,12 +251,10 @@ function MainPages() {
             return (
               <Grid className={classes.content}>
                 <Grid className={classes.info}>
-                  <NavLink to={`/product/${item._id}`}>
-                    <CardMedia
-                      className={classes.media}
-                      image={item.pathImages}
-                    />
-                  </NavLink>
+                  <CardMedia
+                    className={classes.media}
+                    image={item.pathImages}
+                  />
                   <CardContent>
                     <Typography
                       gutterBottom
@@ -267,18 +267,22 @@ function MainPages() {
                   </CardContent>
                   <Box className={classes.productinfo}>{item.price} ₽</Box>
                 </Grid>
-
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.btns}
-                  onClick={() => {
-                    handleAddProductBasket(item);
-                  }}
+                <NavLink
+                  to={`/product/${item?._id}`}
+                  className={classes.btnsproduct}
                 >
-                  Купить
-                </Button>
-                <Grid></Grid>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.btns}
+                  >
+                    <Typography className={classes.btnstext}>View</Typography>
+                  </Button>
+                </NavLink>
+
+                {/* onClick={() => {
+                    handleAddProductBasket(item);
+                  }} */}
               </Grid>
             );
           })}

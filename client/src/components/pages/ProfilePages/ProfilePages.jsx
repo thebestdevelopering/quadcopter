@@ -1,6 +1,6 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import {
   Button,
   Container,
@@ -10,93 +10,92 @@ import {
   Select,
   MenuItem,
   IconButton,
-} from "@material-ui/core";
-import { addImage, addProduct } from "../../../redux/features/products";
-import { loadCategories } from "../../../redux/features/categories";
-import { useEffect } from "react";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
+} from '@material-ui/core';
+import { addImage, addProduct } from '../../../redux/features/products';
+import { loadCategories } from '../../../redux/features/categories';
+import { useEffect } from 'react';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      "& > *": {
+      '& > *': {
         margin: theme.spacing(1),
       },
     },
     rootlabel: {
-      marginLeft: "0px",
+      marginLeft: '0px',
     },
     inputs: {
-      display: "none",
+      display: 'none',
     },
     description: {
-      width: "640px",
+      width: '640px',
     },
     content: {
-      display: "flex",
+      display: 'flex',
     },
     container: {
-      width: "100%",
-      maxWidth: "100%",
-      margin: "0px",
-      padding: "0px",
+      width: '100%',
+      margin: '0px',
+      padding: '0px',
     },
     rightbox: {
-      width: "50%",
+      width: '50%',
     },
     leftbox: {
-      width: "50%",
+      width: '50%',
     },
     input: {
-      width: "320px",
-      marginBottom: "20px",
+      width: '320px',
+      marginBottom: '20px',
     },
     priceinp: {
-      width: "320px",
-      marginBottom: "20px",
-      marginLeft: "20px",
+      width: '320px',
+      marginBottom: '20px',
+      marginLeft: '20px',
     },
     numinp: {
-      width: "320px",
-      marginBottom: "20px",
-      marginLeft: "20px",
+      width: '320px',
+      marginBottom: '20px',
+      marginLeft: '20px',
     },
     inputcat: {
-      width: "320px",
-      height: "56px",
+      width: '320px',
+      height: '56px',
       borderRadius: 4,
-      position: "relative",
+      position: 'relative',
       backgroundColor: theme.palette.background.paper,
-      border: "1px solid #ced4da",
+      border: '1px solid #ced4da',
       fontSize: 18,
-      opacity: "60%",
-      padding: "10px 26px 10px 12px",
-      marginBottom: "20px",
-      transition: theme.transitions.create(["border-color", "box-shadow"]),
+      opacity: '60%',
+      padding: '10px 26px 10px 12px',
+      marginBottom: '20px',
+      transition: theme.transitions.create(['border-color', 'box-shadow']),
       fontFamily: [
-        "-apple-system",
-        "BlinkMacSystemFont",
+        '-apple-system',
+        'BlinkMacSystemFont',
         '"Segoe UI"',
-        "Roboto",
+        'Roboto',
         '"Helvetica Neue"',
-        "Arial",
-        "sans-serif",
+        'Arial',
+        'sans-serif',
         '"Apple Color Emoji"',
         '"Segoe UI Emoji"',
         '"Segoe UI Symbol"',
-      ].join(","),
-      "&:focus": {
+      ].join(','),
+      '&:focus': {
         borderRadius: 1,
-        borderColor: "#80bdff",
-        boxShadow: "0 0 0 0.2rem rgba(0,123,255,.25)",
+        borderColor: '#80bdff',
+        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
       },
     },
     imginput: {
-      height: "40px",
+      height: '40px',
     },
     btninput: {
-      marginBottom: "20px",
+      marginBottom: '20px',
     },
   })
 );
@@ -105,13 +104,11 @@ function ProfilePages() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const token = useSelector((state) => state.application.token);
-
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [number, setNumber] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [category, setCategory] = useState('');
+  const [number, setNumber] = useState('');
+  const [description, setDescription] = useState('');
   const categories = useSelector((state) => state.categories.items);
 
   const handleAddName = (e) => {
@@ -181,7 +178,7 @@ function ProfilePages() {
                 onChange={handleAddCategory}
                 className={classes.inputcat}
                 displayEmpty
-                inputProps={{ "aria-label": "Without label" }}
+                inputProps={{ 'aria-label': 'Without label' }}
               >
                 <MenuItem value="" disabled>
                   Категория
